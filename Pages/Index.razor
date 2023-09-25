@@ -1,0 +1,21 @@
+﻿@page "/"
+@inherits BaseComponentPage
+
+<div class="container">
+    <div class="row flex-column">
+        <img src="/images/full_icon.svg" class="img-fluid" alt="Logo" />
+    </div>
+    <div class="row flex-column">
+        <MyTextInputForm FieldInfo="@handler.GetField("Email")" @bind-Value=@UserForm.Email Placeholder="Email" Disabled=@Loading>
+            <Addon>@("@")</Addon>
+        </MyTextInputForm>
+        <MyTextInputForm Type="password" FieldInfo="@handler.GetField("Password")" @bind-Value=@UserForm.Password Placeholder="Password" Disabled=@Loading>
+            <Addon>@("#")</Addon>
+        </MyTextInputForm>
+    </div>
+    <div class="row flex-column">
+        <button class="btn btn-warning p-2 m-1" onclick="@(() => Login())" disabled="@Loading">LOGIN</button>
+        <a class="btn btn-primary p-2 m-1" href="/register">REGISTER</a>
+    </div>
+</div>
+

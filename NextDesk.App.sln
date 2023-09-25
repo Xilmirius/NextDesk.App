@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31611.283
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextDesk.App", "NextDesk.App.csproj", "{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextDesk.MongoDataLibrary", "..\NextDesk.MongoDataLibrary\NextDesk.MongoDataLibrary.csproj", "{F3CB5C99-9D50-48E2-839A-D626357E524E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextDesk.DataTransferObject", "..\NextDesk.DataTransferObject\NextDesk.DataTransferObject.csproj", "{030D12B7-447A-48B4-99B9-00ACDA324771}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextDesk.Classes", "..\NextDesk.Classes\NextDesk.Classes.csproj", "{AA80101C-8C7D-46B5-95BE-FBC94BBBC594}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextDesk.Utilitity", "..\NextDesk.Utilitity\NextDesk.Utilitity.csproj", "{3D974367-463B-415C-80F9-8E09BB50E1E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextDesk.Components", "..\NextDesk.Components\NextDesk.Components.csproj", "{35575745-99FB-4E52-BFFB-69CEB3179FC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE31959-01A6-4B8E-A768-C2F4E7BBBDE1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F3CB5C99-9D50-48E2-839A-D626357E524E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3CB5C99-9D50-48E2-839A-D626357E524E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3CB5C99-9D50-48E2-839A-D626357E524E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3CB5C99-9D50-48E2-839A-D626357E524E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{030D12B7-447A-48B4-99B9-00ACDA324771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{030D12B7-447A-48B4-99B9-00ACDA324771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{030D12B7-447A-48B4-99B9-00ACDA324771}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{030D12B7-447A-48B4-99B9-00ACDA324771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA80101C-8C7D-46B5-95BE-FBC94BBBC594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA80101C-8C7D-46B5-95BE-FBC94BBBC594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA80101C-8C7D-46B5-95BE-FBC94BBBC594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA80101C-8C7D-46B5-95BE-FBC94BBBC594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D974367-463B-415C-80F9-8E09BB50E1E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D974367-463B-415C-80F9-8E09BB50E1E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D974367-463B-415C-80F9-8E09BB50E1E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D974367-463B-415C-80F9-8E09BB50E1E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35575745-99FB-4E52-BFFB-69CEB3179FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35575745-99FB-4E52-BFFB-69CEB3179FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35575745-99FB-4E52-BFFB-69CEB3179FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35575745-99FB-4E52-BFFB-69CEB3179FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		        SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+		SolutionGuid = {E6304310-5E05-4B52-807F-AC5E20EE3608}
+	EndGlobalSection
+EndGlobal
