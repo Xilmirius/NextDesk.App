@@ -7,11 +7,12 @@
     using NextDesk.DataTransferObject.Login;
     using System.Threading.Tasks;
     using NextDesk.Classes.Form;
-    using NextDesk.Classes.Toast;
 
     public partial class Index : BaseComponentPage
     {
         private bool Loading = false;
+        private string Error = string.Empty;
+
         private FormHandler handler = new();
         public UserLoginForm UserForm { get; set; } = new();
 
@@ -60,7 +61,7 @@
                 }
                 else
                 {
-                    Toast.ShowNotification("Error", response.Error.ErrorDescription, ToastType.Error);
+                    Error = "Error: " + response.Error.ErrorDescription;
                 }
             }
 

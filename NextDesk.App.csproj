@@ -53,7 +53,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove=".editorconfig" />
       <None Remove=".gitignore" />
+      <None Remove="README.md" />
     </ItemGroup>
 
     <ItemGroup>
@@ -80,6 +82,14 @@
       <ProjectReference Include="..\NextDesk.DataTransferObject\NextDesk.DataTransferObject.csproj" />
       <ProjectReference Include="..\NextDesk.MongoDataLibrary\NextDesk.MongoDataLibrary.csproj" />
       <ProjectReference Include="..\NextDesk.Utilitity\NextDesk.Utilitity.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EditorConfigFiles Remove="E:\Next Desk\NextDesk.App\.editorconfig" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EditorConfigFiles Remove="E:\Next Desk\NextDesk.App\.editorconfig" />
     </ItemGroup>
 
 </Project>

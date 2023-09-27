@@ -13,6 +13,12 @@
             <Addon>@("#")</Addon>
         </MyTextInputForm>
     </div>
+    @if (!string.IsNullOrEmpty(Error))
+    {
+        <div class="row">
+            <div class="alert alert-danger" role="alert">@Error</div>
+        </div>
+    }
     <div class="row flex-column">
         <button class="btn btn-warning p-2 m-1" onclick="@(() => Login())" disabled="@Loading">LOGIN</button>
         <a class="btn btn-primary p-2 m-1" href="/register">REGISTER</a>

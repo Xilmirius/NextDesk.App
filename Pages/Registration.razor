@@ -5,94 +5,90 @@
     <div class="row text-center flex-column">
         <img src="/images/full_icon.svg" class="img-fluid" alt="Logo" />
     </div>
-    <TabManager Fill>
+    <TabManager Fill TabChange="@SelectedTab">
         <TabHeader Name="User" />
         <TabHeader Name="Business" />
 
         <TabContent Name="User">
-            <MyTextInputForm FieldInfo="@handler.GetField("FirstName")" @bind-Value=@UserFormData.FirstName Required>
-                <TopLabel>@AppTexts.FirstName</TopLabel>
+            <MyTextInputForm FieldInfo="@userHandler.GetField("FirstName")" @bind-Value=@UserFormData.FirstName Required>
+                <Label>@AppTexts.FirstName</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@userHandler.GetField("LastName")" @bind-Value=@UserFormData.LastName Required>
+                <Label>@AppTexts.LastName</Label>
             </MyTextInputForm>
             <div class="mb-3">
-                <label for="firstName" class="form-label">Nome*</label>
-                <input type="text" class="form-control" id="firstName" @bind-value=@UserFormData.FirstName>
+                <label for="date" class="form-label">@AppTexts.Birth*</label>
+                <input type="date" id="date" class="form-control" @bind-value=@UserFormData.Birth />
             </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Cognome*</label>
-                <input type="text" class="form-control" id="lastName" @bind-value=@UserFormData.LastName>
-            </div>
-            <div class="mb-3">
-                <label for="sesso" class="form-label">Età</label>
-                <select class="form-select" aria-label="Seleziona età" @bind=@UserFormData.Eta>
-                    <option value="minorenne">Minorenne</option>
-                    <option value="18-24" selected>18 - 24</option>
-                    <option value="25-29">25 - 29</option>
-                    <option value="30-40">30 - 40</option>
-                    <option value="Over 50">Over 50</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="sesso" class="form-label">Sesso</label>
-                <select id="sesso" class="form-select" aria-label="Seleziona sesso" @bind=@UserFormData.Sesso>
-                    <option value="donna">Donna</option>
-                    <option value="uomo">Uomo</option>
-                    <option value="altro" selected>Altro</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select id="status" class="form-select" aria-label="Seleziona status" @bind=@UserFormData.Status>
-                    <option value="studente" selected>Studente</option>
-                    <option value="lavoratore">Lavoratore</option>
-                    <option value="altro">Altro</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email*</label>
-                <input type="email" class="form-control" id="email" @bind-value=@UserFormData.Email>
-            </div>
-            <div class="mb-3">
-                <label for="password1" class="form-label">Password*</label>
-                <input type="password" class="form-control" id="password" @bind-value=@UserFormData.Password>
-            </div>
-            <div class="mb-3">
-                <label for="password2" class="form-label">Ripete la password*</label>
-                <input type="password" class="form-control" id="password2" @bind-value="@UserFormData.Password2">
-            </div>
+            @* <MyDateInputForm FieldInfo="@handler.GetField("Birth")" @bind-Value="@UserFormData.Birth" Required>
+            <Label>@AppTexts.Birth</Label>
+            </MyDateInputForm>*@
+            <MySelectInputForm FieldInfo="@userHandler.GetField("Gender")" @bind-Value=@UserFormData.Gender Options="@OptionsForUsers.Gender">
+                <Label>@AppTexts.Gender</Label>
+            </MySelectInputForm>
+            <MySelectInputForm FieldInfo="@userHandler.GetField("Status")" @bind-Value=@UserFormData.Status Options="@OptionsForUsers.Status">
+                <Label>@AppTexts.Status</Label>
+            </MySelectInputForm>
+            <MyTextInputForm FieldInfo="@userHandler.GetField("Email")" @bind-Value=@UserFormData.Email Required>
+                <Label>Email</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@userHandler.GetField("Password")" @bind-Value=@UserFormData.Password Type="password" Required>
+                <Label>Password</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@userHandler.GetField("Password2")" @bind-Value=@UserFormData.Password2 Type="password" Required>
+                <Label>@AppTexts.Password2</Label>
+            </MyTextInputForm>
         </TabContent>
+
         <TabContent Name="Business">
             <p class="text-success">Per chi vuole offrire il suo servizio.</p>
-            <div class="mb-3">
-                <label for="ActivityName" class="form-label">Nome attività*</label>
-                <input type="text" class="form-control" id="ActivityName" @bind-value=@PartnerFormData.ActivityName>
-            </div>
-            <div class="mb-3">
-                <label for="RefFirtName" class="form-label">Nome referente*</label>
-                <input type="text" class="form-control" id="RefFirtName" @bind-value=@PartnerFormData.RefFirtName>
-            </div>
-            <div class="mb-3">
-                <label for="RefLastName" class="form-label">Cognome referent*</label>
-                <input type="text" class="form-control" id="RefLastName" @bind-value=@PartnerFormData.RefLastName>
-            </div>
-            <div class="mb-3">
-                <label for="Address" class="form-label">Indirizzo*</label>
-                <input type="text" class="form-control" id="Address" @bind-value=@PartnerFormData.Address>
-            </div>
-            <div class="mb-3">
-                <label for="PartitaIva" class="form-label">Partita iva</label>
-                <input type="text" class="form-control" id="PartitaIva" @bind-value=@PartnerFormData.PartitaIva>
-            </div>
-            <div class="mb-3">
-                <label for="Telephone" class="form-label">Telefono*</label>
-                <input type="text" class="form-control" id="Telephone" @bind-value=@PartnerFormData.Telephone>
-            </div>
-            <div class="mb-3">
-                <label for="WebSite" class="form-label">Web site</label>
-                <input type="text" class="form-control" id="WebSite" @bind-value=@PartnerFormData.WebSite>
-            </div>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("ActivityName")" @bind-Value=@PartnerFormData.ActivityName Required>
+                <Label>@AppTexts.Activity_Name</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("RefFirstName")" @bind-Value=@PartnerFormData.RefFirstName Required>
+                <Label>@("Nome referente")</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("RefLastName")" @bind-Value=@PartnerFormData.RefLastName Required>
+                <Label>@("Cognome referente")</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("Address")" @bind-Value=@PartnerFormData.Address Required>
+                <Label>@AppTexts.Address</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.PartitaIva Required>
+                <Label>@("Partita iva")</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.Telephone Required>
+                <Label>@AppTexts.Telephone_Number</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.WebSite Required>
+                <Label>@("Website")</Label>
+            </MyTextInputForm>
         </TabContent>
     </TabManager>
-    <div class="row m-2 p-1">
-        <button class="btn btn-primary" onclick="@(() => Register())" disabled="@Loading">REGISTER</button>
+
+    <div class="row card-body p-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind-value="@Terms" id="terms2">
+            <label class="form-check-label" for="terms2">
+                @AppTexts.Accept_Terms_And_Condition
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind-value="@Privacy" id="privacy2">
+            <label class="form-check-label" for="privacy2">
+                @AppTexts.Accept_Privacy_Policy
+            </label>
+        </div>
+
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="row">
+                <div class="alert alert-danger" role="alert">@error</div>
+            </div>
+        }
+
+        <button class="btn btn-primary mt-2" @onclick="@Register" disabled="@(!AbleToCreate)">
+            @AppTexts.Create_Account
+        </button>
     </div>
 </div>
