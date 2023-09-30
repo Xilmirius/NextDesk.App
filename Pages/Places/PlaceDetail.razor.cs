@@ -14,8 +14,6 @@
 
         protected override async Task OnInitializedAsync()
         {
-            ContentLoading = true;
-
             place = await Crud.ReadAsync<Place>(Id);
 
             await base.OnInitializedAsync();

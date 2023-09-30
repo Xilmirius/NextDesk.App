@@ -1,0 +1,29 @@
+﻿@page "/home/partner"
+@layout MainLayout
+@inherits BaseComponentPage
+
+@if (!State.CurrentUser.IsPartner)
+{
+    return;
+}
+
+<div class="text-center mx-auto w-50">
+    <img src="/images/icon.svg" class="img-fluid" alt="logo">
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Benvenuto</h4>
+        <h6 class="card-subtitle mb-2">@AppTexts.Your_Places</h6>
+        <BackgroundLoader TaskId="placesList">
+            @if (places.Count == 0)
+            {
+                <h6 class="text-danger">@AppTexts.There_are_none_places</h6>
+            }
+            @foreach (var place in places)
+            {
+                <PlaceCard Place="@place" />
+            }
+        </BackgroundLoader>
+    </div>
+</div>
+

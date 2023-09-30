@@ -23,12 +23,18 @@
         {
             handler.BindFormData(UserForm);
 
-            if (State.CurrentUser.IsAuthenticated) await Client.AuthPingServer();
-
-            if (AuthStateProvider is ApiAuthenticationStateProvider service)
+            if (State.CurrentUser.IsAuthenticated)
             {
-                await service.GetAuthenticationStateAsync();
-                if (State.CurrentUser.IsAuthenticated) Navigator.NavigateTo("/dashboard");
+                Loading = true;
+                await Client.AuthPingServer();
+
+                if (AuthStateProvider is ApiAuthenticationStateProvider service)
+                {
+                    await service.GetAuthenticationStateAsync();
+                    if (State.CurrentUser.IsAuthenticated && State.CurrentUser.Expiration > DateTime.UtcNow) Navigator.NavigateTo("/home");
+                }
+
+                Loading = false;
             }
 
             await base.OnInitializedAsync();
@@ -55,7 +61,7 @@
                     {
                         if (AuthStateProvider is ApiAuthenticationStateProvider service && await service.MarkUserAsAuthenticatedAsync(response.Content.Token))
                         {
-                            Navigator.NavigateTo("/dashboard");
+                            Navigator.NavigateTo("/home");
                         }
                     }
                 }

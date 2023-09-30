@@ -1,4 +1,4 @@
-﻿namespace NextDesk.App.Pages.Profile
+﻿namespace NextDesk.App.Pages.Account
 {
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Authorization;
