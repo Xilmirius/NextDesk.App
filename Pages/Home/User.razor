@@ -11,14 +11,14 @@
     <img src="/images/icon.svg" class="img-fluid w-50" alt="logo">
     <h1 class="card-title">Benvenuto!</h1>
 </div>
-<div class="container px-3 mt-2">
+<div class="px-3 mt-2">
     <div class="input-group mb-2 mx-auto border-1 rounded" style="box-shadow: 0 0 30px #f3ecba, 0px 2px 5px grey;">
         <span class="input-group-text">
             <i class="fa-solid fa-magnifying-glass fa-xs"></i>
         </span>
-        <input type="text" class="form-control" placeholder="Trova il posto perfetto" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="Trova il posto perfetto per te!">
     </div>
-    <div class="">
+    <div class="row px-3 overflow-y-auto">
         @foreach (var place in places)
         {
             <PlaceCard Place="@place" AsUserView />

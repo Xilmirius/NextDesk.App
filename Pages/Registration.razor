@@ -54,14 +54,23 @@
             <MyTextInputForm FieldInfo="@partnerHandler.GetField("Address")" @bind-Value=@PartnerFormData.Address Required>
                 <Label>@AppTexts.Address</Label>
             </MyTextInputForm>
-            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.PartitaIva Required>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.PartitaIva>
                 <Label>@("Partita iva")</Label>
             </MyTextInputForm>
             <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.Telephone Required>
                 <Label>@AppTexts.Telephone_Number</Label>
             </MyTextInputForm>
-            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.WebSite Required>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("PartitaIva")" @bind-Value=@PartnerFormData.WebSite>
                 <Label>@("Website")</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("Email")" @bind-Value=@PartnerFormData.Email Required>
+                <Label>Email</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("Password")" @bind-Value=@PartnerFormData.Password Type="password" Required>
+                <Label>Password</Label>
+            </MyTextInputForm>
+            <MyTextInputForm FieldInfo="@partnerHandler.GetField("Password2")" @bind-Value=@PartnerFormData.Password2 Type="password" Required>
+                <Label>@AppTexts.Password2</Label>
             </MyTextInputForm>
         </TabContent>
     </TabManager>

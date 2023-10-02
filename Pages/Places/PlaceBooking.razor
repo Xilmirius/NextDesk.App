@@ -1,0 +1,56 @@
+﻿@page "/placebooking/{Id}"
+@layout MainLayout
+@inherits BaseComponentPage
+
+@if (place is null) return;
+
+<div class="text-center">
+    <h6>Prenotazione</h6>
+</div>
+<div class="px-4" style="background-color: #fefdf9;">
+    <div class="card-body">
+        <div class="row flex-column text-center">
+            <h1 class="card-title">@place.InternalName</h1>
+            <div class="px-3">
+                <img src="/images/coffe.jpg" class="img-fluid border rounded-3" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <h5>Descrizione</h5>
+            <div>
+                <p class="px-1 m-auto text-muted">
+                    @if (ShowDescription)
+                    {
+                        @place.Description
+                    }
+                    else
+                    {
+                        @place.Description.Substring(0, 45)
+                        <span>...</span>
+                    }
+                </p>
+                @if (!ShowDescription)
+                {
+                    <div class="text-center">
+                        <button class="btn btn-outline-secondary btn-sm" @onclick="@(() => showFullDescription = true)">Vedi tutto</button>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <h5>Schedule</h5>
+            <div class="row">
+                <div class="d-flex overflow-x-scroll">
+                    @foreach (var day in nextBookingDays)
+                    {
+                        <button class=@(CssDateButton(day.Date)) @onclick=@(() => SelectedDate = day.Date) disabled="@(!day.Config.IsOpen)">
+                            <strong>@day.Date.Day</strong>
+                            <small>@day.Date.ToString("MMMM", CultureInfo.CurrentUICulture)</small>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
