@@ -8,7 +8,7 @@
 
     public partial class PlaceBooking : BaseComponentPage
     {
-        private bool ShowDescription => place?.Description.Length > 45 && showFullDescription;
+        private bool ShowDescription => place?.Info.Description.Length > 45 && showFullDescription;
         private bool showFullDescription = false;
 
         private Place? place;

@@ -21,11 +21,11 @@
                 <p class="px-1 m-auto text-muted">
                     @if (ShowDescription)
                     {
-                        @place.Description
+                        @place.Info.Description
                     }
                     else
                     {
-                        @place.Description.Substring(0, 45)
+                        @place.Info.Description.Substring(0, 45)
                         <span>...</span>
                     }
                 </p>

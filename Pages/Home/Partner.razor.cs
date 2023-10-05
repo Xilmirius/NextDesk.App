@@ -18,8 +18,8 @@
 
         private async Task LoadPlacesData()
         {
-            var response = await Client.GetAsync<PlacesResult>("/api/MongoPlace/SearchForAllPlaces");
-            if (response.Success && response.Content is not null) places = response.Content.Places;
+            var response = await Crud.ReadAsync<Place, PlacesResult>("PartnerPermissionPlaces");
+            if (response is not null) places = response.Places;
         }
     }
 }
