@@ -28,6 +28,8 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <Title>NextDesk App</Title>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
@@ -36,6 +38,9 @@
       <Debugger>Xamarin</Debugger>
       <EnableLLVM>True</EnableLLVM>
       <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+      <AndroidUseAapt2>True</AndroidUseAapt2>
+      <AndroidPackageFormat>apk</AndroidPackageFormat>
+      <AndroidKeyStore>False</AndroidKeyStore>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
@@ -60,6 +65,9 @@
       <Debugger>Xamarin</Debugger>
       <EnableLLVM>True</EnableLLVM>
       <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+      <AndroidUseAapt2>True</AndroidUseAapt2>
+      <AndroidLinkTool>r8</AndroidLinkTool>
+      <AndroidKeyStore>False</AndroidKeyStore>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">

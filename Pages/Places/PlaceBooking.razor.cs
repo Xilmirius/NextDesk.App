@@ -1,5 +1,6 @@
 ﻿namespace NextDesk.App.Pages.Places
 {
+    using System.Globalization;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using NextDesk.Classes.Client;
@@ -14,7 +15,9 @@
         private Place? place;
         private List<DayItemConfiguration> nextBookingDays = new();
 
-        private DateTime? SelectedDate;
+        private DayItemConfiguration? SelectedDay;
+
+        private BookingDialog bookingDialog = new();
 
         [Parameter]
         public string Id { get; set; } = string.Empty;
@@ -44,8 +47,47 @@
 
         private string CssDateButton(DateTime date)
         {
-            var selected = SelectedDate == date ? "btn-success" : string.Empty;
+            var selected = SelectedDay?.Date == date ? "btn-success" : string.Empty;
             return $"btn m-2 p-1 border rounded-2 {selected}";
+        }
+
+        public List<string> OpenTimeRanges()
+        {
+            var list = new List<string>();
+            if (place is null) return list;
+
+            foreach (var day in place.Calendar.Days.Where(w => w.DayOfWeek == DateTime.Now.DayOfWeek))
+            {
+                foreach (var time in day.TimeRanges)
+                {
+                    var timeZone = TimeZoneInfo.FindSystemTimeZoneById(place.Calendar.TimeZone);
+                    var placeLocalTime = TimeZoneInfo.ConvertTime(DateTime.Now, timeZone);
+                    var currentLocalTime = placeLocalTime.TimeOfDay;
+
+                    list.Add($"{time.OpenTime.Hours}:{time.OpenTime.Minutes} - {time.CloseTime.Hours}:{time.CloseTime.Minutes}");
+                }
+            }
+
+            return list;
+        }
+
+        private void SelectDay(DayItemConfiguration day)
+        {
+            SelectedDay = day;
+            SelectedDay.Range = null;
+        }
+
+        private string ConvertTimeRange(TimeRange range)
+        {
+            if (SelectedDay is null) return string.Empty;
+            var open = SelectedDay.Date.Date.Add(range.OpenTime).ToString("HH:mm", CultureInfo.CurrentUICulture);
+            var close = SelectedDay.Date.Date.Add(range.CloseTime).ToString("HH:mm", CultureInfo.CurrentUICulture);
+            return $"{open} - {close}";
+        }
+
+        private async Task OnClickCreateBooking()
+        {
+
         }
     }
 
@@ -54,6 +96,8 @@
         public DayConfiguration Config { get; }
 
         public DateTime Date { get; }
+
+        public TimeRange? Range { get; set; }
 
         public DayItemConfiguration(DayConfiguration config, DateTime date)
         {

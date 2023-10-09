@@ -43,14 +43,52 @@
                 <div class="d-flex overflow-x-scroll">
                     @foreach (var day in nextBookingDays)
                     {
-                        <button class=@(CssDateButton(day.Date)) @onclick=@(() => SelectedDate = day.Date) disabled="@(!day.Config.IsOpen)">
+                        <button class=@(CssDateButton(day.Date)) @onclick=@(() => SelectDay(day)) disabled="@(!day.Config.IsOpen)">
                             <strong>@day.Date.Day</strong>
                             <small>@day.Date.ToString("MMMM", CultureInfo.CurrentUICulture)</small>
                         </button>
                     }
                 </div>
             </div>
+            @if (SelectedDay is not null)
+            {
+                <h5>@("Orari")</h5>
+                <div class="row my-2">
+                    <div class="d-flex overflow-x-scroll">
+                        @if (SelectedDay.Config.NedeTimeRanges.Count == 0)
+                        {
+                            <div class="alert alert-light" role="alert">
+                                @("Non ci sono orari per questo giorno.")
+                            </div>
+                        }
+                        @foreach (var range in SelectedDay.Config.NedeTimeRanges)
+                        {
+                            <button class=@("btn btn-sm " + (range == SelectedDay.Range ? "btn-success" : "btn-primary")) @onclick=@(() => SelectedDay.Range = range)>
+                                <strong>@(ConvertTimeRange(range))</strong>
+                            </button>
+                        }
+                    </div>
+                </div>
+                <div class="text-center">
+                    @if (SelectedDay.Range is not null)
+                    {
+                        <button type="button" class="btn btn-success btn-lg">@("Prenota >>")</button>
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>
 
+<MyDialog Visible=@bookingDialog.Visible Center Closed="@(() => bookingDialog.Visible = false)">
+    <DialogTitle>@("Prenotazione")</DialogTitle>
+    <Content>
+        <div class="row text-center">
+            <h4 class="col-12">@("Orari apertura attività")</h4>
+        </div>
+    </Content>
+    <DialogFooter>
+        <button class="btn btn-sm" @onclick=@(() => bookingDialog.Visible = false)>@("Chiudi")</button>
+        <button class="btn btn-success btn-sm" @onclick=@OnCliclCreateBooking>@("Salva")</button>
+    </DialogFooter>
+</MyDialog>

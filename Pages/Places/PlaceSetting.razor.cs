@@ -3,12 +3,14 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using NextDesk.Classes.Client;
+    using NextDesk.DataTransferObject.Bookings;
     using NextDesk.DataTransferObject.Places;
+    using NextDesk.MongoDataLibrary.Models.Booking;
     using NextDesk.MongoDataLibrary.Models.Org;
 
     public partial class PlaceSetting : BaseComponentPage
     {
-        private Place? place;
+        private Booking? place;
         private PlaceServicesUpdate servicesForm = new();
         private PlaceDescriptionUpdate descriptionForm = new();
         private PlaceDaySettingUpdate editDay = new();
@@ -18,7 +20,7 @@
 
         protected override async Task OnInitializedAsync()
         {
-            place = await Crud.ReadAsync<Place>(Id);
+            place = await Crud.ReadAsync<Booking>(Id);
             if (place is not null)
             {
                 servicesForm.SetData(place.Info.Services);

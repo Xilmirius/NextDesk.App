@@ -16,7 +16,7 @@
         <span class="input-group-text">
             <i class="fa-solid fa-magnifying-glass fa-xs"></i>
         </span>
-        <input type="text" class="form-control" placeholder="Trova il posto perfetto per te!">
+        <input type="text" class="form-control" placeholder="Trova il posto perfetto per te!" @bind-value=@Search>
     </div>
     <div class="row px-3 overflow-y-auto">
         @foreach (var place in places)

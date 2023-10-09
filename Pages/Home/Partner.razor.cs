@@ -2,12 +2,12 @@
 {
     using System.Threading.Tasks;
     using NextDesk.Classes.Client;
-    using NextDesk.DataTransferObject.Places;
+    using NextDesk.MongoDataLibrary.Models.Booking;
     using NextDesk.MongoDataLibrary.Models.Org;
 
     public partial class Partner : BaseComponentPage
     {
-        private List<Place> places = new();
+        private List<Booking> places = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -18,7 +18,7 @@
 
         private async Task LoadPlacesData()
         {
-            var response = await Crud.ReadAsync<Place, PlacesResult>("PartnerPermissionPlaces");
+            var response = await Crud.ReadAsync<Booking, SearchResult>("PartnerPermissionPlaces");
             if (response is not null) places = response.Places;
         }
     }
