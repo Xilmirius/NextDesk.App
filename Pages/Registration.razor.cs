@@ -23,8 +23,8 @@
 
         protected override async Task OnInitializedAsync()
         {
-            userHandler.BindFormData(UserFormData);
-            partnerHandler.BindFormData(PartnerFormData);
+            userHandler.SetFields(UserFormData.GetAllFields());
+            partnerHandler.SetFields(PartnerFormData.GetAllFields());
 
             await base.OnInitializedAsync();
         }
@@ -38,7 +38,8 @@
 
         public async Task RegisterUser()
         {
-            var result = userHandler.Validate();
+            var result = UserFormData.ValidateFields();
+            userHandler.SetValidationResult(result);
 
             if (result.IsValid)
             {
@@ -73,7 +74,8 @@
 
         public async Task RegisterPartner()
         {
-            var result = partnerHandler.Validate();
+            var result = PartnerFormData.ValidateFields();
+            partnerHandler.SetValidationResult(result);
 
             if (result.IsValid)
             {

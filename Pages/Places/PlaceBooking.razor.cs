@@ -4,12 +4,13 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using NextDesk.Classes.Client;
+    using NextDesk.DataTransferObject.Bookings;
     using NextDesk.MongoDataLibrary.Helpers.Org;
+    using NextDesk.MongoDataLibrary.Models.Booking;
     using NextDesk.MongoDataLibrary.Models.Org;
 
     public partial class PlaceBooking : BaseComponentPage
     {
-        private bool ShowDescription => place?.Info.Description.Length > 45 && showFullDescription;
         private bool showFullDescription = false;
 
         private Place? place;
@@ -85,9 +86,28 @@
             return $"{open} - {close}";
         }
 
+        private void ShowBookingDialog()
+        {
+            if (SelectedDay is null) return;
+
+            bookingDialog.Show(Id, SelectedDay);
+        }
+
         private async Task OnClickCreateBooking()
         {
+            if (place is null || SelectedDay is null) return;
 
+            var response = await Crud.CreateAsync<Booking, BookingCreate>(bookingDialog.form);
+            if (response.Success && response.Content is not null)
+            {
+                Navigator.NavigateTo("/bookings/userlist");
+            }
+        }
+
+        private string ShortDescription()
+        {
+            if (place is null) return string.Empty;
+            return place.Info.Description.Length > 45 ? place.Info.Description[..44] : place.Info.Description;
         }
     }
 

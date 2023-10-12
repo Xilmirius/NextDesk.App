@@ -19,17 +19,17 @@
             <h5>Descrizione</h5>
             <div>
                 <p class="px-1 m-auto text-muted">
-                    @if (ShowDescription)
+                    @if (showFullDescription)
                     {
                         @place.Info.Description
                     }
                     else
                     {
-                        @place.Info.Description.Substring(0, 45)
+                        @ShortDescription()
                         <span>...</span>
                     }
                 </p>
-                @if (!ShowDescription)
+                @if (!showFullDescription)
                 {
                     <div class="text-center">
                         <button class="btn btn-outline-secondary btn-sm" @onclick="@(() => showFullDescription = true)">Vedi tutto</button>
@@ -72,7 +72,7 @@
                 <div class="text-center">
                     @if (SelectedDay.Range is not null)
                     {
-                        <button type="button" class="btn btn-success btn-lg">@("Prenota >>")</button>
+                        <button type="button" class="btn btn-primary btn-lg" @onclick=@ShowBookingDialog>@("Prenota >>")</button>
                     }
                 </div>
             }
@@ -83,12 +83,18 @@
 <MyDialog Visible=@bookingDialog.Visible Center Closed="@(() => bookingDialog.Visible = false)">
     <DialogTitle>@("Prenotazione")</DialogTitle>
     <Content>
-        <div class="row text-center">
-            <h4 class="col-12">@("Orari apertura attività")</h4>
+        <div class="row">
+            @("Posto: ")@place.InternalName
+        </div>
+        <div class="row">
+            @($"Data: {bookingDialog.form.Date.ToString("M", CultureInfo.CurrentUICulture)}")
+        </div>
+        <div class="row">
+            @($"Orario: {ConvertTimeRange(bookingDialog.form.Range)}")
         </div>
     </Content>
     <DialogFooter>
         <button class="btn btn-sm" @onclick=@(() => bookingDialog.Visible = false)>@("Chiudi")</button>
-        <button class="btn btn-success btn-sm" @onclick=@OnCliclCreateBooking>@("Salva")</button>
+        <button class="btn btn-primary btn-sm" @onclick=@OnClickCreateBooking>@("Prenota")</button>
     </DialogFooter>
 </MyDialog>

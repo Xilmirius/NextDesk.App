@@ -16,13 +16,15 @@
         <span class="input-group-text">
             <i class="fa-solid fa-magnifying-glass fa-xs"></i>
         </span>
-        <input type="text" class="form-control" placeholder="Trova il posto perfetto per te!" @bind-value=@Search>
+        <input type="text" class="form-control" placeholder="Trova il posto perfetto per te!" @bind-value=@Search @bind-value:event="oninput">
     </div>
     <div class="row px-3 overflow-y-auto">
-        @foreach (var place in places)
-        {
-            <PlaceCard Place="@place" AsUserView />
-        }
+        <BackgroundLoader TaskId="@nameof(User)">
+            @foreach (var place in places)
+            {
+                <PlaceCard Place="@place" AsUserView />
+            }
+        </BackgroundLoader>
     </div>
 </div>
 

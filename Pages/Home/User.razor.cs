@@ -3,29 +3,47 @@
     using System.Threading.Tasks;
     using NextDesk.Classes.Client;
     using NextDesk.DataTransferObject.API;
-    using NextDesk.MongoDataLibrary.Models.Booking;
     using NextDesk.MongoDataLibrary.Models.Org;
 
     public partial class User : BaseComponentPage
     {
-        public string Search { get; set; } = string.Empty;
-        private List<Booking> places = new();
+        private List<Place> places = new();
+        private string stringSearch = string.Empty;
+
+        public string Search
+        {
+            get => stringSearch;
+            set
+            {
+                stringSearch = value;
+                SetPollingTimer(350);
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {
             await LoadPlacesData();
-
             await base.OnInitializedAsync();
         }
 
         private async Task LoadPlacesData()
         {
-            var search = new SearchObj()
+            await BackgroundLoader.StartTaskAsync(async _ =>
             {
-                StringSearch = Search,
-            };
-            var response = await Crud.SearchFor<Booking, SearchObj, SearchResult<Booking>>(search);
-            if (response is not null) places = response.ListResult;
+                var search = new SearchObj()
+                {
+                    StringSearch = Search,
+                };
+
+                var response = await Crud.GenericSearchFor<Place>(search);
+                if (response is not null) places = response.ListResult;
+            }, nameof(User));
+            StateHasChanged();
+        }
+
+        public override async Task OnPollingAsync()
+        {
+            await LoadPlacesData();
         }
     }
 }

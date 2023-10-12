@@ -14,14 +14,14 @@
         private string Error = string.Empty;
 
         private FormHandler handler = new();
-        public UserLoginForm UserForm { get; set; } = new();
+        public UserLoginForm LoginForm { get; set; } = new();
 
         [Inject]
         public AuthenticationStateProvider AuthStateProvider { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
-            handler.BindFormData(UserForm);
+            handler.SetFields(LoginForm.GetAllFields());
 
             if (State.CurrentUser.IsAuthenticated)
             {
@@ -42,15 +42,16 @@
 
         public async void Login()
         {
-            var result = handler.Validate();
+            var result = LoginForm.ValidateFields();
+            handler.SetValidationResult(result);
 
             if (result.IsValid)
             {
                 Loading = true;
                 var data = new LoginModel()
                 {
-                    Email = UserForm.Email,
-                    Password = UserForm.Password,
+                    Email = LoginForm.Email,
+                    Password = LoginForm.Password,
                     RememberMe = true,
                 };
 

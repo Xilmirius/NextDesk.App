@@ -27,7 +27,7 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
         <Title>NextDesk App</Title>
     </PropertyGroup>

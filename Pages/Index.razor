@@ -12,10 +12,10 @@
     else
     {
         <div class="row flex-column">
-            <MyTextInputForm FieldInfo="@handler.GetField("Email")" @bind-Value=@UserForm.Email Placeholder="Email" Disabled=@Loading>
+            <MyTextInputForm FieldInfo="@handler.GetField("Email")" @bind-Value=@LoginForm.Email Placeholder="Email" Disabled=@Loading>
                 <Addon>@("@")</Addon>
             </MyTextInputForm>
-            <MyTextInputForm Type="password" FieldInfo="@handler.GetField("Password")" @bind-Value=@UserForm.Password Placeholder="Password" Disabled=@Loading>
+            <MyTextInputForm Type="password" FieldInfo="@handler.GetField("Password")" @bind-Value=@LoginForm.Password Placeholder="Password" Disabled=@Loading>
                 <Addon>@("#")</Addon>
             </MyTextInputForm>
         </div>
