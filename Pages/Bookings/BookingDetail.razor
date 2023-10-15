@@ -1,0 +1,69 @@
+﻿@page "/bookings/details/{Id}"
+@layout MainLayout
+@inherits BaseComponentPage
+
+@if (booking is null || place is null)
+{
+    return;
+}
+
+<div class="text-center">
+    <h6>@("Dettaglio")</h6>
+</div>
+<div class="px-3">
+    <div class="card-body">
+        <div class="@GetStatusCssContainer()">
+            <h2 class="card-title my-2">@GetBookingStatusTitle()</h2>
+            <span>
+                <i class="@GetStatusIcon()"></i>
+            </span>
+        </div>
+    </div>
+    <div class="mt-4 card-body">
+        <div class="row">
+            <div class="col-4">
+                <img src="@GetImageUrl()" class="img-fluid rounded-4">
+            </div>
+            <div class="col-8">
+                <h5>@place.InternalName</h5>
+                <p class="text-muted">@ShortDescription()...</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h4>@("Data:")</h4>
+                <p class="text-muted">@booking.BookingDate.ToString("dd MMM, yyy")</p>
+            </div>
+            <div class="col-3">
+                <h4>@("Ora:")</h4>
+                <p class="text-muted">@booking.BookingDate.ToString("hh:mm")</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>@("Location:")</h4>
+                <p class="d-flex text-mute">
+                    <i class="fa-solid fa-location-dot fa-xl mx-2"></i>
+                    @place.Address.Street
+                </p>
+            </div>
+        </div>    
+
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-danger" @onclick="@(() => visible = true)">@("Anulla prenotazione")</button>
+        </div>
+    </div>
+</div>
+
+<MyDialog Visible=@visible Center Closed="@(() => visible = false)">
+    <DialogTitle>@("Annullare")</DialogTitle>
+    <Content>
+        <div class="row">
+            @("Sicuro di voler annullare?")
+        </div>
+    </Content>
+    <DialogFooter>
+        <button class="btn btn-sm" @onclick=@(() => visible = false)>@("Chiudi")</button>
+        <button class="btn btn-danger btn-sm" @onclick=@OnClickDelete>@("Annulla")</button>
+    </DialogFooter>
+</MyDialog>

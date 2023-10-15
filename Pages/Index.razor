@@ -26,8 +26,8 @@
             </div>
         }
         <div class="row flex-column">
-            <button class="btn btn-warning p-2 m-1" onclick="@(() => Login())" disabled="@Loading">LOGIN</button>
-            <a class="btn btn-primary p-2 m-1" href="/register">REGISTER</a>
+            <button class="btn btn-warning p-2 m-1" onclick="@(() => Login())" disabled="@Loading">@AppTexts.Login.ToUpper()</button>
+            <a class="btn btn-primary p-2 m-1" href="/register">@AppTexts.Register.ToUpper()</a>
         </div>
     }
 </div>

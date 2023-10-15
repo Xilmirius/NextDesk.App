@@ -12,10 +12,10 @@
         <div class="row flex-column text-center">
             <h1 class="card-title">@place.InternalName</h1>
             <div class="px-3">
-                <img src="/images/coffe.jpg" class="img-fluid border rounded-3" />
+                <img src="https://www.tavernarossini.it/wp-content/uploads/2018/05/IMG_8129.jpg" class="img-fluid border rounded-3" />
             </div>
         </div>
-        <div class="row my-2">
+        <div class="row mt-2">
             <h5>Descrizione</h5>
             <div>
                 <p class="px-1 m-auto text-muted">
@@ -33,6 +33,20 @@
                 {
                     <div class="text-center">
                         <button class="btn btn-outline-secondary btn-sm" @onclick="@(() => showFullDescription = true)">Vedi tutto</button>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row my-2">
+            <h5>@("Servizi")</h5>
+            <div class="overflow-x-auto">
+                @foreach (var service in place.Info.Services)
+                {
+                    <div class="px-1">
+                        <span class="me-1">
+                            <i class=@("fa-solid " + OptionsForPlaces.ServicesIcon.Find(f => f.Value == service)?.Description) />
+                        </span>
+                        @OptionsForPlaces.Services.Find(f => f.Value == service)?.Description
                     </div>
                 }
             </div>
@@ -72,7 +86,7 @@
                 <div class="text-center">
                     @if (SelectedDay.Range is not null)
                     {
-                        <button type="button" class="btn btn-primary btn-lg" @onclick=@ShowBookingDialog>@("Prenota >>")</button>
+                        <button type="button" class="btn btn-primary btn-lg" @onclick=@ShowBookingDialog>@("Schedule >>")</button>
                     }
                 </div>
             }

@@ -1,17 +1,49 @@
-﻿@page "/account"
+﻿@page "/account/{id}"
 @layout MainLayout
 @inherits BaseComponentPage
 
-<div class="text-center mx-auto w-50">
-    <img src="/images/icon.svg" class="img-fluid w-50" alt="logo">
-    <h1 class="card-title">Account</h1>
-</div>
+@if (account is null || account.Id != State.CurrentUser.Id)
+{
+    return;
+}
+
 <div class="card">
+    <div class="row flex-column text-center">
+        <h1 class="card-title">@("Profilo")</h1>
+        <div class="px-3">
+            <img class="w-50 rounded-circle" src="/images/user.png" />
+        </div>
+    </div>
     <div class="card-body">
-        <h2 class="card-title">Impostazioni</h2>
-        <h4 class="card-header mb-1">@State.CurrentUser.Name</h4>
-        <div class="row p-3">
-            <button class="btn bg-danger" onclick="@(() => Logout())">Logout</button>
+        <MyTextInputForm FieldInfo="@handler.GetField("FirstName")" @bind-Value=@form.FirstName>
+            <Label>@AppTexts.FirstName</Label>
+        </MyTextInputForm>
+        <MyTextInputForm FieldInfo="@handler.GetField("LastName")" @bind-Value=@form.LastName>
+            <Label>@AppTexts.LastName</Label>
+        </MyTextInputForm>
+        <MySelectInputForm FieldInfo="@handler.GetField("Gender")" @bind-Value=@form.Gender Options="@OptionsForUsers.Gender">
+            <Label>@AppTexts.Gender</Label>
+        </MySelectInputForm>
+        <MyTextInputForm FieldInfo="@handler.GetField("Email")" Value=@account.Email Disabled>
+            <Label>@AppTexts.Email</Label>
+        </MyTextInputForm>
+        <MyTextInputForm FieldInfo="@handler.GetField("Password")" Value="********" Disabled>
+            <Label>@AppTexts.Password</Label>
+        </MyTextInputForm>
+        <div class="px-4">
+            <button class="btn btn-sm btn-link">@("Ricupera password")</button>
+            <button class="btn btn-success float-end" @onclick=@OnClickSaveAccount>@("Salva")</button>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <h4 class="card-title px-2">@("Azioni")</h4>
+    <div class="card-body">
+        <div class="text-center">
+            <button class="btn btn-outline-danger" @onclick=@Logout>
+                @("Esci")
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
         </div>
     </div>
 </div>

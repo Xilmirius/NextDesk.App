@@ -1,4 +1,4 @@
-﻿namespace NextDesk.App.Pages.Bookings
+﻿namespace NextDesk.App.Pages.Home
 {
     using System.Threading.Tasks;
     using NextDesk.Classes.Client;
