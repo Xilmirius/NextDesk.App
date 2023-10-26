@@ -23,6 +23,9 @@
 
                 <TabContent Name=@("Descrizione")>
                     <div class="">
+                        <MyNumericInputForm FieldInfo=@(new FormFieldInfo("description")) @bind-Value=descriptionForm.Capacity >
+                            <Label>@("Capacità")</Label>
+                        </MyNumericInputForm>
                         <MyMultiTextInputForm FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
                             <Label>@("Gestisci descrizione")</Label>
                         </MyMultiTextInputForm>

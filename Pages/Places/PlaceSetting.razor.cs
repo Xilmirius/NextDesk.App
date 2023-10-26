@@ -22,7 +22,7 @@
             if (place is not null)
             {
                 servicesForm.SetData(place.Info.Services);
-                descriptionForm.SetData(place.Info.Description);
+                descriptionForm.SetData(place);
             }
             await base.OnInitializedAsync();
         }
