@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+        <TargetFrameworks>net7.0-android;net7.0-ios</TargetFrameworks>
         <OutputType>Exe</OutputType>
         <RootNamespace>NextDesk.App</RootNamespace>
         <UseMaui>true</UseMaui>
@@ -15,7 +14,7 @@
         <ApplicationTitle>NextDesk</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.nextdesk.nextdesk.app</ApplicationId>
+        <ApplicationId>com.nextdesk.app</ApplicationId>
         <ApplicationIdGuid>BCE50B79-55B8-4D0D-8D55-06B8431A2907</ApplicationIdGuid>
 
         <!-- Versions -->
@@ -23,9 +22,7 @@
         <ApplicationVersion>1</ApplicationVersion>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -48,16 +45,6 @@
       <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
-      <ApplicationId>com.nextdesk.app</ApplicationId>
-      <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationId>com.nextdesk.app</ApplicationId>
-      <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
-    </PropertyGroup>
-
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
       <ApplicationId>com.nextdesk.app</ApplicationId>
       <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
@@ -75,16 +62,6 @@
       <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
-      <ApplicationId>com.nextdesk.app</ApplicationId>
-      <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationId>com.nextdesk.app</ApplicationId>
-      <ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
-    </PropertyGroup>
-
     <ItemGroup>
         <!-- App Icon -->
         <MauiIcon Include="Resources\AppIcon\appicon.svg">
@@ -96,9 +73,6 @@
 
         <!-- Images -->
         <MauiImage Include="wwwroot\images\*" />
-
-        <!-- Custom Fonts -->
-        <MauiFont Include="Resources\Fonts\*" />
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />

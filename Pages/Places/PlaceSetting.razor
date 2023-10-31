@@ -17,15 +17,18 @@
         </div>
         <div class="my-2">
             <TabManager Small Fill UnderLine>
-                <TabHeader Name=@("Descrizione") />
+                <TabHeader Name=@("Generale") />
                 <TabHeader Name=@("Disponibilità") />
                 <TabHeader Name=@("Servizi") />
 
-                <TabContent Name=@("Descrizione")>
-                    <div class="">
-                        <MyNumericInputForm FieldInfo=@(new FormFieldInfo("description")) @bind-Value=descriptionForm.Capacity >
-                            <Label>@("Capacità")</Label>
-                        </MyNumericInputForm>
+                <TabContent Name=@("Generale")>
+                    <div class="row">
+                        <h6>@("Tavoli"): @place.Booking.Tables.Count</h6>
+                        <button class="btn btn-outline-dark float-end">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="row my-1">
                         <MyMultiTextInputForm FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
                             <Label>@("Gestisci descrizione")</Label>
                         </MyMultiTextInputForm>
@@ -63,6 +66,23 @@
     </div>
 </div>
 
+<MyDialog Visible=@true Center Closed="@(() => editDay.visibleDialog = false)">
+    <DialogTitle>@("Tavoli") @AppTexts._DayOfWeek(editDay.DayConfig.DayOfWeek, UILang)</DialogTitle>
+    <Content>
+        <div class="row text-center">
+            <h4 class="col-12">@("Tavoli")</h4>
+            @foreach (var table in place.Booking.Tables)
+            {
+
+            }
+        </div>
+    </Content>
+    <DialogFooter>
+        <button class="btn btn-sm" @onclick=@(() => editDay.visibleDialog = false)>@("Chiudi")</button>
+        <button class="btn btn-success btn-sm" @onclick=@SalvaDaySetting>@("Salva")</button>
+    </DialogFooter>
+</MyDialog>
+
 <MyDialog Visible=@editDay.visibleDialog Center Closed="@(() => editDay.visibleDialog = false)">
     <DialogTitle>@("Impostazione") @AppTexts._DayOfWeek(editDay.DayConfig.DayOfWeek, UILang)</DialogTitle>
     <Content>
@@ -98,7 +118,7 @@
             @if (editDay.TimeRange.Count < 2)
             {
                 <div class="text-center">
-                    <button class="btn btn-sm btn-outline-dark" @onclick=@(() => editDay.TimeRange.Add(new()))>@("Aggiungi slot")</button>
+                    <button class="btn btn-sm btn-outline-dark" @onclick=@editDay.NewTimeSlot>@("Aggiungi slot")</button>
                 </div>
             }
         </div>
@@ -134,7 +154,7 @@
             @if (editDay.NedeTimeRange.Count < 2)
             {
                 <div class="text-center">
-                    <button class="btn btn-sm btn-outline-dark" @onclick=@(() => editDay.NedeTimeRange.Add(new()))>@("Aggiungi slot")</button>
+                    <button class="btn btn-sm btn-outline-dark" @onclick=@editDay.NewNedeSlot>@("Aggiungi slot")</button>
                 </div>
             }
         </div>

@@ -10,13 +10,14 @@
         private FormHandler userHandler = new();
         private FormHandler partnerHandler = new();
 
-        private string tab = "User";
+        private string profileType = string.Empty;
         private string error = string.Empty;
 
         private bool AbleToCreate => Terms && Privacy && !Loading;
         private bool Loading = false;
         private bool Privacy = false;
         private bool Terms = false;
+        private bool Marketing = false;
 
         public UserRegistrationForm UserFormData { get; set; } = new();
         public PartnerRegistrationForm PartnerFormData { get; set; } = new();
@@ -32,8 +33,8 @@
         public async Task Register()
         {
             error = string.Empty;
-            if (tab == "User") await RegisterUser();
-            if (tab == "Business") await RegisterPartner();
+            if (profileType == "user") await RegisterUser();
+            if (profileType == "business") await RegisterPartner();
         }
 
         public async Task RegisterUser()
@@ -112,6 +113,6 @@
             Loading = false;
         }
 
-        private void SelectedTab(string selected) => tab = selected;
+        private void SelectProfile(string selected) => profileType = selected;
     }
 }

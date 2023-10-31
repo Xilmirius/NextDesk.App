@@ -26,8 +26,15 @@
             </div>
         }
         <div class="row flex-column">
-            <button class="btn btn-warning p-2 m-1" onclick="@(() => Login())" disabled="@Loading">@AppTexts.Login.ToUpper()</button>
-            <a class="btn btn-primary p-2 m-1" href="/register">@AppTexts.Register.ToUpper()</a>
+            <button class="btn rounded-4 text-uppercase" style="background-color: #00cb74;" @onclick="@(() => Login())" disabled="@Loading">
+                @AppTexts.Login
+            </button>
+            <a class="btn rounded-4 mt-2 text-uppercase" style="background-color: #eddb48;" href="/register">
+                @AppTexts.Register
+            </a>
+            <a class="mt-2 text-muted text-center" href="/register">
+                @AppTexts.Dimenticato_Password ?
+            </a>
         </div>
     }
 </div>
