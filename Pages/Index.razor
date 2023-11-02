@@ -43,13 +43,14 @@
     <DialogTitle>@AppTexts.Dimenticato_Password?</DialogTitle>
     <Content>
         <div class="text-center">
-            <p class="text-wrap text-center">@("Inserice la tua mail per ricevere la mail con il link per reimpostare las tua password")</p>
             @if (!passwordDialog.Sent)
             {
+                <p class="text-wrap text-center">@("Inserice la tua mail per ricevere la mail con il link per reimpostare las tua password.")</p>
                 <MyTextInputForm FieldInfo="@(new FormFieldInfo("Email"))" @bind-Value=@passwordDialog.Email Placeholder="Email" />
             }
             else
             {
+                <p class="text-wrap text-center">@("Ti abbiamo appena inviato un'email per reimpostare la password. Controlla anche tra gli spam.")</p>
                 <span>
                     <i class="fa-solid fa-circle-check fa-2xl text-success"></i>
                 </span>

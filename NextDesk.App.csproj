@@ -80,7 +80,6 @@
 
     <ItemGroup>
       <Content Remove="nuget.config" />
-      <Content Remove="wwwroot\images\arrows_icon.svg" />
     </ItemGroup>
 
     <ItemGroup>
