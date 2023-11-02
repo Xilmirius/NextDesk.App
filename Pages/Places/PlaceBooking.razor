@@ -94,7 +94,7 @@
     </div>
 </div>
 
-<MyDialog Visible=@bookingDialog.Visible Center Closed="@(() => bookingDialog.Visible = false)">
+<MyDialog Visible=@bookingDialog.Visible Center Close="@(() => bookingDialog.Visible = false)">
     <DialogTitle>@("Prenotazione")</DialogTitle>
     <Content>
         <div class="row">

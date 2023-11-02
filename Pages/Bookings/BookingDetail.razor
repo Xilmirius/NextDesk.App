@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<MyDialog Visible=@visible Center Closed="@(() => visible = false)">
+<MyDialog Visible=@visible Center Close="@(() => visible = false)">
     <DialogTitle>@("Annullare")</DialogTitle>
     <Content>
         <div class="row">

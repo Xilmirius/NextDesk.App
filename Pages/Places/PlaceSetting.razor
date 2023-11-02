@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<MyDialog Visible=@true Center Closed="@(() => editDay.visibleDialog = false)">
+<MyDialog Visible=@true Center Close="@(() => editDay.visibleDialog = false)">
     <DialogTitle>@("Tavoli") @AppTexts._DayOfWeek(editDay.DayConfig.DayOfWeek, UILang)</DialogTitle>
     <Content>
         <div class="row text-center">
@@ -83,7 +83,7 @@
     </DialogFooter>
 </MyDialog>
 
-<MyDialog Visible=@editDay.visibleDialog Center Closed="@(() => editDay.visibleDialog = false)">
+<MyDialog Visible=@editDay.visibleDialog Center Close="@(() => editDay.visibleDialog = false)">
     <DialogTitle>@("Impostazione") @AppTexts._DayOfWeek(editDay.DayConfig.DayOfWeek, UILang)</DialogTitle>
     <Content>
         <div class="row text-center">
