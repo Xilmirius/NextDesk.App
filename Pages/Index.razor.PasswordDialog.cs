@@ -4,7 +4,7 @@
     {
         public bool Visible { get; set; }
 
-        public bool Sent { get; set; } = true;
+        public bool Sent { get; set; }
 
         public string Email { get; set; } = string.Empty;
 
