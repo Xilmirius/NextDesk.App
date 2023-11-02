@@ -2,8 +2,8 @@
 @inherits BaseComponentPage
 
 <div>
-    <div class="row text-center flex-column">
-        <img src="/images/full_icon.svg" class="img-fluid" alt="Logo" />
+    <div class="text-center">
+        <img src="/images/icon.svg" class="img-fluid w-75" alt="Logo" />
     </div>
     @if (string.IsNullOrEmpty(profileType))
     {
@@ -85,6 +85,12 @@
 
     @if (!string.IsNullOrEmpty(profileType))
     {
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="row">
+                <div class="alert alert-danger" role="alert">@error</div>
+            </div>
+        }
         <div class="row card-body p-3">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" @bind-value="@Terms" id="terms">
@@ -108,12 +114,6 @@
                 <a href="/marketing" class="text-muted">@("Leggi più.")</a>
             </div>
 
-            @if (!string.IsNullOrEmpty(error))
-            {
-                <div class="row">
-                    <div class="alert alert-danger" role="alert">@error</div>
-                </div>
-            }
 
             <button class="btn btn-primary mt-2" @onclick="@Register" disabled="@(!AbleToCreate)">
                 @AppTexts.Create_Account

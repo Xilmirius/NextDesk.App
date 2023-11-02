@@ -2,8 +2,8 @@
 @inherits BaseComponentPage
 
 <div class="container">
-    <div class="row flex-column">
-        <img src="/images/full_icon.svg" class="img-fluid" alt="Logo" />
+    <div class="text-center">
+        <img src="/images/icon.svg" class="img-fluid w-75" alt="Logo" />
     </div>
     @if (Loading)
     {
@@ -32,10 +32,40 @@
             <a class="btn rounded-4 mt-2 text-uppercase" style="background-color: #eddb48;" href="/register">
                 @AppTexts.Register
             </a>
-            <a class="mt-2 text-muted text-center" href="/register">
+            <button class="btn mt-2 text-muted text-center" @onclick=@passwordDialog.Show>
                 @AppTexts.Dimenticato_Password ?
-            </a>
+            </button>
         </div>
     }
 </div>
+
+<MyDialog Visible=@passwordDialog.Visible Center Close="@passwordDialog.Hide" StackContent>
+    <DialogTitle>@AppTexts.Dimenticato_Password?</DialogTitle>
+    <Content>
+        <div class="text-center">
+            <p class="text-wrap text-center">@("Inserice la tua mail per ricevere la mail con il link per reimpostare las tua password")</p>
+            @if (!passwordDialog.Sent)
+            {
+                <MyTextInputForm FieldInfo="@(new FormFieldInfo("Email"))" @bind-Value=@passwordDialog.Email Placeholder="Email" />
+            }
+            else
+            {
+                <span>
+                    <i class="fa-solid fa-circle-check fa-2xl text-success"></i>
+                </span>
+            }
+        </div>
+        @if (!string.IsNullOrEmpty(passwordDialog.Error))
+        {
+            <div class="row">
+                <div class="alert alert-danger" role="alert">@passwordDialog.Error</div>
+            </div>
+        }
+    </Content>
+    <DialogFooter>
+        <button class="btn rounded-4 text-uppercase" style="background-color: #00cb74;" @onclick=@ResetPassword disabled=@passwordDialog.Sent>
+            @("Invia link")
+        </button>
+    </DialogFooter>
+</MyDialog>
 
