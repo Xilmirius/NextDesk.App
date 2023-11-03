@@ -2,15 +2,7 @@
 @layout MainLayout
 @inherits BaseComponentPage
 
-@if (State.CurrentUser.IsPartner)
-{
-    return;
-}
-
-<div class="text-center mx-auto w-50">
-    <img src="/images/icon.svg" class="img-fluid w-50" alt="logo">
-    <h1 class="card-title">Appuntamenti</h1>
-</div>
+<BannerNede Title=@("Appuntamenti") />
 <div class="px-3 mt-2">
     <BackgroundLoader TaskId="@nameof(UserList)">
         <TabManager Fill Pills>

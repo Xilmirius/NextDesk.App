@@ -2,15 +2,7 @@
 @layout MainLayout
 @inherits BaseComponentPage
 
-@if (State.CurrentUser.IsPartner)
-{
-    return;
-}
-
-<div class="text-center mx-auto w-50">
-    <img src="/images/icon.svg" class="img-fluid w-50" alt="logo">
-    <h1 class="card-title">Benvenuto!</h1>
-</div>
+<BannerNede Title=@("Benvenuto!") />
 <div class="px-3 mt-2">
     <div class="input-group mb-2 mx-auto border-1 rounded" style="box-shadow: 0 0 30px #f3ecba, 0px 2px 5px grey;">
         <span class="input-group-text">

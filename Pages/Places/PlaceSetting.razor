@@ -1,6 +1,9 @@
 ﻿@page "/placesettings/{Id}"
 @layout MainLayout
 @inherits BaseComponentPage
+@using NextDesk.MongoDataLibrary.Models.Org;
+
+@attribute [Authorize(Roles = "partner")]
 
 @if (place is null) return;
 
@@ -42,7 +45,7 @@
                         <h6 class="">@("Gestisci disponibilità")</h6>
                         @foreach (var day in place.Calendar.Days)
                         {
-                            <button class=@("btn my-1 " + (day.IsOpen ? "btn-outline-success" : "btn-outline-warning")) @onclick=@(() => editDay.SetData(day))>@AppTexts._DayOfWeek(day.DayOfWeek, UILang)</button>
+                            <button class=@("btn my-1 " + (day.IsOpen ? "btn-outline-success" : "btn-outline-warning")) @onclick=@(() => editDayDialog.Show(day))>@AppTexts._DayOfWeek(day.DayOfWeek, UILang)</button>
                         }
                     </div>
                 </TabContent>
@@ -66,25 +69,50 @@
     </div>
 </div>
 
-<MyDialog Visible=@true Center Close="@(() => editDay.visibleDialog = false)">
-    <DialogTitle>@("Tavoli") @AppTexts._DayOfWeek(editDay.DayConfig.DayOfWeek, UILang)</DialogTitle>
+<MyDialog Visible=@editTableDialog.Visible Center Close="@editTableDialog.Hide">
+    <DialogTitle>@("Tavoli")</DialogTitle>
     <Content>
-        <div class="row text-center">
-            <h4 class="col-12">@("Tavoli")</h4>
-            @foreach (var table in place.Booking.Tables)
-            {
-
-            }
+        <p class="text-muted">@("Imposta il numero di tavoli disponibile per prenotare al tuo locale.")</p>
+        <p>@("Capacità totale: ") @place.Booking.Tables.Sum(s => s.Capacity)</p>
+        <div class="table-responsive" style="max-height: 300px;">
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>@("Nro.")</th>
+                        <th>@("Posti")</th>
+                        <th>@("Condiviso")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var table in place.Booking.Tables)
+                    {
+                        <tr>
+                            <td>
+                                <button class="btn btn-outline-danger btn-sm rounded-4">
+                                    <i class="fa-solid fa-xmark" />
+                                </button>
+                            </td>
+                            <td>@(place.Booking.Tables.FindIndex(f => f.TableId == table.TableId) + 1)</td>
+                            <td>
+                                <button class="btn btn-outline-dark btn-sm rounded-4"><i class="fa-solid fa-minus" /></button>
+                                @table.Capacity
+                                <button class="btn btn-outline-dark btn-sm rounded-4"><i class="fa-solid fa-plus" /></button>
+                            </td>
+                            <td><MyCheckBoxInputForm Css="mb-0" FieldInfo=@(new FormFieldInfo("s")) /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </Content>
     <DialogFooter>
-        <button class="btn btn-sm" @onclick=@(() => editDay.visibleDialog = false)>@("Chiudi")</button>
-        <button class="btn btn-success btn-sm" @onclick=@SalvaDaySetting>@("Salva")</button>
+        <button class="btn btn-sm rounded-4" style="background-color: #00cb74;" @onclick=@(() => place.Booking.Tables.Add(new TableBookingConfig()))>@("Aggiungi")</button>
     </DialogFooter>
 </MyDialog>
 
-<MyDialog Visible=@editDay.visibleDialog Center Close="@(() => editDay.visibleDialog = false)">
-    <DialogTitle>@("Impostazione") @AppTexts._DayOfWeek(editDay.DayConfig.DayOfWeek, UILang)</DialogTitle>
+<MyDialog Visible=@editDayDialog.Visible Center Close="@editDayDialog.Hide">
+    <DialogTitle>@("Impostazione") @AppTexts._DayOfWeek(editDayDialog.form.DayConfig.DayOfWeek, UILang)</DialogTitle>
     <Content>
         <div class="row text-center">
             <h4 class="col-12">@("Orari apertura attività")</h4>
@@ -97,17 +125,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var range in editDay.TimeRange.Select((e, i) => new { Open = e.Open, Close = e.Close, Index = i }))
+                    @foreach (var range in editDayDialog.form.TimeRange.Select((e, i) => new { Open = e.Open, Close = e.Close, Index = i }))
                     {
                         <tr>
                             <td>
-                                <input class="form-control" type="time" value="@range.Open.ToString("HH:mm:ss")" @onchange=@(e => editDay.Edit("open", range.Index, e.Value?.ToString())) />
+                                <input class="form-control" type="time" value="@range.Open.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.Edit("open", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
-                                <input class="form-control" type="time" value="@range.Close.ToString("HH:mm:ss")" @onchange=@(e => editDay.Edit("close", range.Index, e.Value?.ToString())) />
+                                <input class="form-control" type="time" value="@range.Close.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.Edit("close", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-outline-danger" @onclick=@(() => editDay.TimeRange.RemoveAt(range.Index))>
+                                <button class="btn btn-sm btn-outline-danger" @onclick=@(() => editDayDialog.form.TimeRange.RemoveAt(range.Index))>
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
@@ -115,10 +143,10 @@
                     }
                 </tbody>
             </table>
-            @if (editDay.TimeRange.Count < 2)
+            @if (editDayDialog.form.TimeRange.Count < 2)
             {
                 <div class="text-center">
-                    <button class="btn btn-sm btn-outline-dark" @onclick=@editDay.NewTimeSlot>@("Aggiungi slot")</button>
+                    <button class="btn btn-sm btn-outline-dark" @onclick=@editDayDialog.form.NewTimeSlot>@("Aggiungi slot")</button>
                 </div>
             }
         </div>
@@ -133,17 +161,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var range in editDay.NedeTimeRange.Select((e, i) => new { Open = e.Open, Close = e.Close, Index = i }))
+                    @foreach (var range in editDayDialog.form.NedeTimeRange.Select((e, i) => new { Open = e.Open, Close = e.Close, Index = i }))
                     {
                         <tr>
                             <td>
-                                <input class="form-control" type="time" value="@range.Open.ToString("HH:mm:ss")" @onchange=@(e => editDay.EditNede("open", range.Index, e.Value?.ToString())) />
+                                <input class="form-control" type="time" value="@range.Open.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.EditNede("open", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
-                                <input class="form-control" type="time" value="@range.Close.ToString("HH:mm:ss")" @onchange=@(e => editDay.EditNede("close", range.Index, e.Value?.ToString())) />
+                                <input class="form-control" type="time" value="@range.Close.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.EditNede("close", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-outline-danger my-auto" @onclick=@(() => editDay.NedeTimeRange.RemoveAt(range.Index))>
+                                <button class="btn btn-sm btn-outline-danger my-auto" @onclick=@(() => editDayDialog.form.NedeTimeRange.RemoveAt(range.Index))>
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
@@ -151,16 +179,16 @@
                     }
                 </tbody>
             </table>
-            @if (editDay.NedeTimeRange.Count < 2)
+            @if (editDayDialog.form.NedeTimeRange.Count < 2)
             {
                 <div class="text-center">
-                    <button class="btn btn-sm btn-outline-dark" @onclick=@editDay.NewNedeSlot>@("Aggiungi slot")</button>
+                    <button class="btn btn-sm btn-outline-dark" @onclick=@editDayDialog.form.NewNedeSlot>@("Aggiungi slot")</button>
                 </div>
             }
         </div>
     </Content>
     <DialogFooter>
-        <button class="btn btn-sm" @onclick=@(() => editDay.visibleDialog = false)>@("Chiudi")</button>
+        <button class="btn btn-sm" @onclick=@editDayDialog.Hide>@("Chiudi")</button>
         <button class="btn btn-success btn-sm" @onclick=@SalvaDaySetting>@("Salva")</button>
     </DialogFooter>
 </MyDialog>

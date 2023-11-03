@@ -36,7 +36,8 @@
                 if (AuthStateProvider is ApiAuthenticationStateProvider service)
                 {
                     await service.GetAuthenticationStateAsync();
-                    if (State.CurrentUser.IsAuthenticated && State.CurrentUser.Expiration > DateTime.UtcNow) Navigator.NavigateTo("/home");
+                    if (State.CurrentUser.IsAuthenticated && State.CurrentUser.Expiration > DateTime.UtcNow)
+                        Navigator.NavigateTo(State.CurrentUser.IsPartner ? "/home/partner" : "/home/user");
                 }
 
                 Loading = false;

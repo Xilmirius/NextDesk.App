@@ -9,9 +9,11 @@
     public partial class PlaceSetting : BaseComponentPage
     {
         private Place? place;
+
         private PlaceServicesUpdate servicesForm = new();
         private PlaceDescriptionUpdate descriptionForm = new();
-        private PlaceDaySettingUpdate editDay = new();
+        private DaysDialog editDayDialog = new();
+        private TablesDialog editTableDialog = new();
 
         [Parameter]
         public string Id { get; set; } = string.Empty;
@@ -55,14 +57,14 @@
         {
             if (place is null) return;
 
-            var result = editDay.ValidateFields();
+            var result = editDayDialog.form.ValidateFields();
             if (result.IsValid)
             {
-                var response = await Crud.UpdateAsync(editDay, place);
+                var response = await Crud.UpdateAsync(editDayDialog, place);
                 if (response.Success && response.Content is not null)
                 {
                     place = response.Content;
-                    editDay.visibleDialog = false;
+                    editDayDialog.form.visibleDialog = false;
                 }
             }
         }
