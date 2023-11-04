@@ -12,7 +12,7 @@
             <TabContent Name=@("Prossimi")>
                 <div>
                     <h4>@("Oggi")</h4>
-                    @if (bookings.Where(w => w.BookingDate.Date == DateTime.Now.Date).Count() == 0)
+                    @if (bookings.Where(w => w.BookingDate.Date == DateTime.UtcNow.Date).Count() == 0)
                     {
                         <div class="alert alert-info" role="alert">
                             @("Non ci sono appuntamenti!") <a href="/home/user" class="btn btn-link">@("Prenota ora")</a>

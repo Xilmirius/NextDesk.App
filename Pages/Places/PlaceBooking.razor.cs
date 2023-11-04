@@ -35,7 +35,7 @@
         {
             if (place is null) return;
 
-            var today = DateTime.Now.Date;
+            var today = DateTime.UtcNow.Date;
             for (int dayIndex = 0; dayIndex <= 7; dayIndex++)
             {
                 var day = today.AddDays(dayIndex);
@@ -46,10 +46,9 @@
             }
         }
 
-        private string CssDateButton(DateTime date)
+        private string StyleDateButton(DateTime date)
         {
-            var selected = SelectedDay?.Date == date ? "btn-success" : string.Empty;
-            return $"btn m-2 p-1 border rounded-2 {selected}";
+            return SelectedDay?.Date == date ? "background-color: #00cb74" : string.Empty;
         }
 
         public List<string> OpenTimeRanges()
@@ -100,7 +99,7 @@
             var response = await Crud.CreateAsync<Booking, BookingCreate>(bookingDialog.form);
             if (response.Success && response.Content is not null)
             {
-                Navigator.NavigateTo("/bookings/userlist");
+                Navigator.NavigateTo("/bookings/details/" + response.Content.Id);
             }
         }
 

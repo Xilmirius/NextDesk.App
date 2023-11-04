@@ -68,7 +68,7 @@
                     {
                         if (AuthStateProvider is ApiAuthenticationStateProvider service && await service.MarkUserAsAuthenticatedAsync(response.Content.Token))
                         {
-                            Navigator.NavigateTo("/home");
+                            Navigator.NavigateTo(State.CurrentUser.IsPartner ? "/home/partner" : "/home/user");
                         }
                     }
                 }

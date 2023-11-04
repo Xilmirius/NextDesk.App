@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using NextDesk.Classes.Client;
+    using NextDesk.Classes.OptionsFor;
     using NextDesk.DataTransferObject.Places;
     using NextDesk.MongoDataLibrary.Models.Org;
 
@@ -23,7 +24,7 @@
             place = await Crud.ReadAsync<Place>(Id);
             if (place is not null)
             {
-                servicesForm.SetData(place.Info.Services);
+                servicesForm.SetData(place.Info.Services, OptionsForPlaces.Services);
                 descriptionForm.SetData(place);
             }
             await base.OnInitializedAsync();
@@ -65,6 +66,29 @@
                 {
                     place = response.Content;
                     editDayDialog.form.visibleDialog = false;
+                }
+            }
+        }
+
+        private void OnClickTablesDialog()
+        {
+            if (place is null) return;
+
+            editTableDialog.Show(place.Booking);
+        }
+
+        private async Task OnClickSaveTables()
+        {
+            if (place is null) return;
+
+            var result = editTableDialog.form.ValidateFields();
+            if (result.IsValid)
+            {
+                var response = await Crud.UpdateAsync(editTableDialog.form, place);
+                if (response.Success && response.Content is not null)
+                {
+                    place = response.Content;
+                    editTableDialog.Hide();
                 }
             }
         }

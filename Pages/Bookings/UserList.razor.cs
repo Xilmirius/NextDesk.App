@@ -3,7 +3,9 @@
     using System.Threading.Tasks;
     using NextDesk.Classes.Client;
     using NextDesk.DataTransferObject.API;
+    using NextDesk.MongoDataLibrary;
     using NextDesk.MongoDataLibrary.Models.Booking;
+    using NextDesk.MongoDataLibrary.Models.Users;
 
     public partial class UserList : BaseComponentPage
     {
@@ -19,7 +21,11 @@
         {
             await BackgroundLoader.StartTaskAsync(async _ =>
             {
-                var search = new SearchObj() { UseUserPermission = true };
+                var search = new SearchObj()
+                {
+                    UseUserPermission = true,
+                    TheResource = MiniMe.GetMiniMe<Account>(State.CurrentUser.Id)
+                };
 
                 var response = await Crud.GenericSearchFor<Booking>(search);
                 if (response is not null) bookings = response.ListResult;

@@ -57,7 +57,7 @@
                 <div class="d-flex overflow-x-scroll">
                     @foreach (var day in nextBookingDays)
                     {
-                        <button class=@(CssDateButton(day.Date)) @onclick=@(() => SelectDay(day)) disabled="@(!day.Config.IsOpen)">
+                        <button class="btn btn-outline-dark m-2 p-1 rounded-2" style=@StyleDateButton(day.Date) @onclick=@(() => SelectDay(day)) disabled="@(!day.Config.IsOpen)">
                             <strong>@day.Date.Day</strong>
                             <small>@day.Date.ToString("MMMM", CultureInfo.CurrentUICulture)</small>
                         </button>
@@ -77,7 +77,7 @@
                         }
                         @foreach (var range in SelectedDay.Config.NedeTimeRanges)
                         {
-                            <button class=@("btn btn-sm " + (range == SelectedDay.Range ? "btn-success" : "btn-primary")) @onclick=@(() => SelectedDay.Range = range)>
+                            <button class="btn btn-sm btn-outline-dark" style=@("background-color: #00cb74") @onclick=@(() => SelectedDay.Range = range)>
                                 <strong>@(ConvertTimeRange(range))</strong>
                             </button>
                         }
@@ -86,7 +86,9 @@
                 <div class="text-center">
                     @if (SelectedDay.Range is not null)
                     {
-                        <button type="button" class="btn btn-primary btn-lg" @onclick=@ShowBookingDialog>@("Schedule >>")</button>
+                        <button class="btn btn-lg rounded-4" style="background-color: #eddb48" @onclick=@ShowBookingDialog>
+                            @("Schedule >>")
+                        </button>
                     }
                 </div>
             }
@@ -108,7 +110,7 @@
         </div>
     </Content>
     <DialogFooter>
-        <button class="btn btn-sm" @onclick=@(() => bookingDialog.Visible = false)>@("Chiudi")</button>
-        <button class="btn btn-primary btn-sm" @onclick=@OnClickCreateBooking>@("Prenota")</button>
+        <button class="btn btn-sm rounded-4" @onclick=@(() => bookingDialog.Visible = false)>@("Chiudi")</button>
+        <button class="btn btn-sm rounded-4" style="background-color: #00cb74;" @onclick=@OnClickCreateBooking>@("Prenota")</button>
     </DialogFooter>
 </MyDialog>

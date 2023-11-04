@@ -4,10 +4,9 @@
 
 @attribute [Authorize(Roles = "partner")]
 
-<BannerNede />
+<BannerNede Title="@("Benvenuto!")" />
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Benvenuto</h4>
         <h6 class="card-subtitle mb-2">@AppTexts.Your_Places</h6>
         <BackgroundLoader TaskId="placesList">
             @if (places.Count == 0)

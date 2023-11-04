@@ -33,7 +33,7 @@
 
             var response = await Crud.DeleteAsync(booking);
             if (response.Success && response.Content is not null && response.Content.Success)
-                Navigator.NavigateTo("/bookings/userlist");
+                booking = await Crud.ReadAsync<Booking>(Id);
 
             visible = false;
         }
@@ -48,7 +48,7 @@
                 "confirmed" => "bg-success",
                 "pending" => "bg-info",
                 "canceled" => "bg-danger text-white",
-                _ => "rounded-4 p-2 text-center",
+                _ => throw new InvalidOperationException(nameof(booking.Status)),
             };
         }
 
@@ -60,7 +60,7 @@
                 "confirmed" => "Prenotazione confermata!",
                 "pending" => "Prenotazione in attesa",
                 "canceled" => "Prenotazione cancellata",
-                _ => "Prenotazione non trovata",
+                _ => throw new InvalidOperationException(nameof(booking.Status)),
             };
         }
 
@@ -71,10 +71,17 @@
             return style + booking.Status switch
             {
                 "confirmed" => "fa-circle-check fa-2xl",
-                "pending" => "fa-spinner spinner fa-2xl",
-                "canceled" => " fa-xmark fa-2xl",
-                _ => "mb-3 fa-solid fa-question fa-2xl",
+                "pending" => "spinner-border fa-2xl",
+                "canceled" => "fa-xmark fa-2xl",
+                _ => throw new InvalidOperationException(nameof(booking.Status)),
             };
+        }
+
+        private string GetTableNumber()
+        {
+            if (booking is null || place is null) return "-";
+            var index = place.Booking.Tables.FindIndex(f => f.TableId == booking.TableId);
+            return index == -1 ? "-" : $"{index + 1}";
         }
 
         private string GetImageUrl()

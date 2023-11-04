@@ -25,19 +25,19 @@
                 <TabHeader Name=@("Servizi") />
 
                 <TabContent Name=@("Generale")>
-                    <div class="row">
-                        <h6>@("Tavoli"): @place.Booking.Tables.Count</h6>
-                        <button class="btn btn-outline-dark float-end">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6>@("Capacità attuale"): @place.Booking.TotalCapacity</h6>
+                        <button class="btn btn-outline-dark" @onclick=@OnClickTablesDialog>
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>
                     <div class="row my-1">
                         <MyMultiTextInputForm FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
-                            <Label>@("Gestisci descrizione")</Label>
+                            <Label>@("Descrizione")</Label>
                         </MyMultiTextInputForm>
                     </div>
                     <div>
-                        <button class="btn btn-success float-end" @onclick=@OnClickSaveDescription>@("Salva")</button>
+                        <button class="btn float-end rounded-4" style="background-color: #00cb74;" @onclick=@OnClickSaveDescription>@("Salva")</button>
                     </div>
                 </TabContent>
                 <TabContent Name=@("Disponibilità")>
@@ -51,11 +51,10 @@
                 </TabContent>
                 <TabContent Name=@("Servizi")>
                     <div>
-                        @foreach (var service in OptionsForPlaces.Services)
+                        @foreach (var service in servicesForm.Services)
                         {
-                            <MyCheckBoxInputForm ValueChanged="@((e) => servicesForm.OnChangeService(service.Value))" FieldInfo="@(new FormFieldInfo("Service"))"
-                                                 Checked=@(servicesForm.Services.Find(f => f == service.Value) is not null)
-                                                 Icon="@(OptionsForPlaces.ServicesIcon.Find(f => f.Value == service.Value)?.Description)">
+                            <MyCheckBoxInputForm @bind-Value=@service.Enable FieldInfo="@(new FormFieldInfo("Service"))"
+                                                 Icon="@(OptionsForPlaces.ServicesIcon.Find(f => f.Value == service.Name)?.Description)">
                                 <Label>@service.Description</Label>
                             </MyCheckBoxInputForm>
                         }
@@ -73,7 +72,13 @@
     <DialogTitle>@("Tavoli")</DialogTitle>
     <Content>
         <p class="text-muted">@("Imposta il numero di tavoli disponibile per prenotare al tuo locale.")</p>
-        <p>@("Capacità totale: ") @place.Booking.Tables.Sum(s => s.Capacity)</p>
+        <div class="">
+            <span>@("Capacità totale: ") @editTableDialog.form.Capacity</span>
+            <button class="btn btn-sm btn-outline-dark rounded-4" @onclick=@(() => editTableDialog.form.Tables.Add(new()))>
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
         <div class="table-responsive" style="max-height: 300px;">
             <table class="table table-sm table-striped">
                 <thead>
@@ -85,21 +90,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var table in place.Booking.Tables)
+                    @foreach (var table in editTableDialog.form.Tables)
                     {
                         <tr>
                             <td>
-                                <button class="btn btn-outline-danger btn-sm rounded-4">
-                                    <i class="fa-solid fa-xmark" />
+                                <button class="btn btn-sm btn-outline-danger" @onclick=@(() => editTableDialog.form.RemoveTable(table.TableId))>
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
-                            <td>@(place.Booking.Tables.FindIndex(f => f.TableId == table.TableId) + 1)</td>
+                            <td>@(editTableDialog.form.Tables.FindIndex(f => f.TableId == table.TableId) + 1)</td>
                             <td>
-                                <button class="btn btn-outline-dark btn-sm rounded-4"><i class="fa-solid fa-minus" /></button>
+                                <button class="btn btn-outline-dark btn-sm rounded-4" @onclick=@(() => editTableDialog.form.ChangePlaces(table.TableId, -1))>
+                                    <i class="fa-solid fa-minus" />
+                                </button>
                                 @table.Capacity
-                                <button class="btn btn-outline-dark btn-sm rounded-4"><i class="fa-solid fa-plus" /></button>
+                                <button class="btn btn-outline-dark btn-sm rounded-4" @onclick=@(() => editTableDialog.form.ChangePlaces(table.TableId, 1))>
+                                    <i class="fa-solid fa-plus" />
+                                </button>
                             </td>
-                            <td><MyCheckBoxInputForm Css="mb-0" FieldInfo=@(new FormFieldInfo("s")) /></td>
+                            <td><MyCheckBoxInputForm @bind-Value=@table.CanBeShare Css="mb-0" FieldInfo=@(new FormFieldInfo("check")) /></td>
                         </tr>
                     }
                 </tbody>
@@ -107,7 +116,8 @@
         </div>
     </Content>
     <DialogFooter>
-        <button class="btn btn-sm rounded-4" style="background-color: #00cb74;" @onclick=@(() => place.Booking.Tables.Add(new TableBookingConfig()))>@("Aggiungi")</button>
+        <button class="btn btn-sm rounded-4" @onclick=@editDayDialog.Hide>@("Chiudi")</button>
+        <button class="btn btn-sm rounded-4" style="background-color: #00cb74;" @onclick=@OnClickSaveTables>@("Salva")</button>
     </DialogFooter>
 </MyDialog>
 

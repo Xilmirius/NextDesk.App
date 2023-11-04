@@ -30,13 +30,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <h4>@("Data:")</h4>
                 <p class="text-muted">@booking.BookingDate.ToString("dd MMM, yyy")</p>
             </div>
             <div class="col-3">
                 <h4>@("Ora:")</h4>
                 <p class="text-muted">@booking.BookingDate.ToString("hh:mm")</p>
+            </div>
+            <div class="col-3">
+                <h4>@("Tavolo:")</h4>
+                <p class="text-muted">@GetTableNumber()</p>
             </div>
         </div>
         <div class="row">
@@ -47,11 +51,13 @@
                     @place.Address.Street
                 </p>
             </div>
-        </div>    
-
-        <div class="text-center mt-4">
-            <button class="btn btn-outline-danger" @onclick="@(() => visible = true)">@("Anulla prenotazione")</button>
         </div>
+        @if (booking.Status != "canceled")
+        {
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-danger" @onclick="@(() => visible = true)">@("Anulla prenotazione")</button>
+            </div>
+        }
     </div>
 </div>
 
@@ -63,7 +69,7 @@
         </div>
     </Content>
     <DialogFooter>
-        <button class="btn btn-sm" @onclick=@(() => visible = false)>@("Chiudi")</button>
-        <button class="btn btn-danger btn-sm" @onclick=@OnClickDelete>@("Annulla")</button>
+        <button class="btn btn-sm rounded-4" @onclick=@(() => visible = false)>@("Chiudi")</button>
+        <button class="btn btn-danger btn-sm rounded-4" @onclick=@OnClickDelete>@("Annulla")</button>
     </DialogFooter>
 </MyDialog>
