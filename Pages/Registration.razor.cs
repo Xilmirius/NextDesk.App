@@ -61,7 +61,7 @@
                 {
                     if (response.Content.Successful)
                     {
-                        Navigator.NavigateTo("/");
+                        profileType = "completed";
                     }
                 }
                 else
@@ -101,7 +101,7 @@
                 {
                     if (response.Content.Successful)
                     {
-                        Navigator.NavigateTo("/");
+                        profileType = "completed";
                     }
                 }
                 else

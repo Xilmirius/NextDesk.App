@@ -108,6 +108,12 @@
         <div class="row">
             @($"Orario: {ConvertTimeRange(bookingDialog.form.Range)}")
         </div>
+        @if (!string.IsNullOrEmpty(bookingDialog.Error))
+        {
+            <div class="row">
+                <div class="alert alert-danger" role="alert">@bookingDialog.Error</div>
+            </div>
+        }
     </Content>
     <DialogFooter>
         <button class="btn btn-sm rounded-4" @onclick=@(() => bookingDialog.Visible = false)>@("Chiudi")</button>

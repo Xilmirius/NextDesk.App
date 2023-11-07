@@ -61,11 +61,11 @@
             var result = editDayDialog.form.ValidateFields();
             if (result.IsValid)
             {
-                var response = await Crud.UpdateAsync(editDayDialog, place);
+                var response = await Crud.UpdateAsync(editDayDialog.form, place);
                 if (response.Success && response.Content is not null)
                 {
                     place = response.Content;
-                    editDayDialog.form.visibleDialog = false;
+                    editDayDialog.Hide();
                 }
             }
         }

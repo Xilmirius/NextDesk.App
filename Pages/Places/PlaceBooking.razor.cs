@@ -56,7 +56,7 @@
             var list = new List<string>();
             if (place is null) return list;
 
-            foreach (var day in place.Calendar.Days.Where(w => w.DayOfWeek == DateTime.Now.DayOfWeek))
+            foreach (var day in place.Calendar.Days.Where(w => w.DayOfWeek == DateTime.UtcNow.DayOfWeek))
             {
                 foreach (var time in day.TimeRanges)
                 {
@@ -100,6 +100,10 @@
             if (response.Success && response.Content is not null)
             {
                 Navigator.NavigateTo("/bookings/details/" + response.Content.Id);
+            }
+            else
+            {
+                bookingDialog.Error = response.Error.ErrorDescription;
             }
         }
 

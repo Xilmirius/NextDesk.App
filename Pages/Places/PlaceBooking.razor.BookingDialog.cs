@@ -6,6 +6,8 @@
     {
         public BookingCreate form = new();
 
+        public string Error { get; set; } = string.Empty;
+
         public bool Visible { get; set; }
 
         public void Show(string Id, DayItemConfiguration config)

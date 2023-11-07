@@ -1,7 +1,7 @@
 ﻿@page "/register"
 @inherits BaseComponentPage
 
-<BannerNede Title=@("Sei un...?") FullWidth/>
+<BannerNede Title="@(profileType != "completed"? "Sei un...?": "Registrato con successo!")" FullWidth />
 @if (Loading)
 {
     <LoadingIcon />
@@ -86,7 +86,7 @@
     </MyTextInputForm>
     }
 
-    @if (!string.IsNullOrEmpty(profileType))
+    @if (profileType == "business" || profileType == "user")
     {
         @if (!string.IsNullOrEmpty(error))
         {
@@ -120,6 +120,28 @@
             <button class="btn rounded-4 mt-2" style="background-color: #00cb74;" @onclick="@Register" disabled="@(!AbleToCreate)">
                 @AppTexts.Create_Account
             </button>
+        </div>
+    }
+
+    @if (profileType == "completed")
+    {
+        <div class="card">
+            <div class="card-body">
+                <p>
+                    Next Desk è una piattaforma che vi permetterà di prenotare facilmente
+                    posti a sedere per andare a studiare e lavorare nei vostri locali preferiti🛋️📚
+                </p>
+                <div class="row mx-4">
+                    <a href="https://t.me/nextdesk" class="btn rounded-4 mt-2 mx-auto" style="background-color: #64b5ef;">
+                        @("Iscriviti a Telegram!")
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <a href="/" class="btn rounded-4 mt-2" style="background-color: #00cb74;">
+                @("Accedi")
+            </a>
         </div>
     }
 </div>
