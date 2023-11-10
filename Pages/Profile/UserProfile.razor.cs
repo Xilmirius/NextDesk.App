@@ -49,11 +49,10 @@
 
             var result = form.ValidateFields();
             handler.SetValidationResult(result);
-            if (result.IsValid)
-            {
-                var response = await Crud.UpdateAsync(form, account);
-                if (response.Success && response.Content is not null) account = response.Content;
-            }
+            if (!result.IsValid) return;
+
+            var response = await Crud.UpdateAsync(form, account);
+            if (response.Success && response.Content is not null) account = response.Content;
         }
     }
 }

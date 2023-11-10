@@ -45,6 +45,7 @@
 				<ApplicationId>com.nextdesk.app</ApplicationId>
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
+				<BuildIpa>False</BuildIpa>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
@@ -64,6 +65,7 @@
 				<ApplicationId>com.nextdesk.app</ApplicationId>
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
+				<BuildIpa>False</BuildIpa>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(TargetFramework)'=='net7.0-ios'">
@@ -86,6 +88,10 @@
 
 				<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 				<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		</ItemGroup>
+
+		<ItemGroup>
+		  <Content Remove="nuget.config" />
 		</ItemGroup>
 
 		<ItemGroup>

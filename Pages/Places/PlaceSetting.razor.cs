@@ -35,11 +35,10 @@
             if (place is null) return;
 
             var result = descriptionForm.ValidateFields();
-            if (result.IsValid)
-            {
-                var response = await Crud.UpdateAsync(descriptionForm, place);
-                if (response.Success && response.Content is not null) place = response.Content;
-            }
+            if (!result.IsValid) return;
+
+            var response = await Crud.UpdateAsync(descriptionForm, place);
+            if (response.Success && response.Content is not null) place = response.Content;
         }
 
         private async Task OnClickSaveServices()
@@ -47,11 +46,10 @@
             if (place is null) return;
 
             var result = servicesForm.ValidateFields();
-            if (result.IsValid)
-            {
-                var response = await Crud.UpdateAsync(servicesForm, place);
-                if (response.Success && response.Content is not null) place = response.Content;
-            }
+            if (!result.IsValid) return;
+
+            var response = await Crud.UpdateAsync(servicesForm, place);
+            if (response.Success && response.Content is not null) place = response.Content;
         }
 
         private async Task SalvaDaySetting()
@@ -59,14 +57,13 @@
             if (place is null) return;
 
             var result = editDayDialog.form.ValidateFields();
-            if (result.IsValid)
+            if (!result.IsValid) return;
+
+            var response = await Crud.UpdateAsync(editDayDialog.form, place);
+            if (response.Success && response.Content is not null)
             {
-                var response = await Crud.UpdateAsync(editDayDialog.form, place);
-                if (response.Success && response.Content is not null)
-                {
-                    place = response.Content;
-                    editDayDialog.Hide();
-                }
+                place = response.Content;
+                editDayDialog.Hide();
             }
         }
 
@@ -82,14 +79,13 @@
             if (place is null) return;
 
             var result = editTableDialog.form.ValidateFields();
-            if (result.IsValid)
+            if (!result.IsValid) return;
+
+            var response = await Crud.UpdateAsync(editTableDialog.form, place);
+            if (response.Success && response.Content is not null)
             {
-                var response = await Crud.UpdateAsync(editTableDialog.form, place);
-                if (response.Success && response.Content is not null)
-                {
-                    place = response.Content;
-                    editTableDialog.Hide();
-                }
+                place = response.Content;
+                editTableDialog.Hide();
             }
         }
     }

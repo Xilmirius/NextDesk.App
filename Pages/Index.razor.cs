@@ -51,31 +51,30 @@
             var result = LoginForm.ValidateFields();
             handler.SetValidationResult(result);
 
-            if (result.IsValid)
-            {
-                Loading = true;
-                var data = new LoginModel()
-                {
-                    Email = LoginForm.Email,
-                    Password = LoginForm.Password,
-                    RememberMe = true,
-                };
+            if (!result.IsValid) return;
 
-                var response = await Client.PostAsync<LoginResult>("/api/login", data);
-                if (response.Success && response.Content is not null)
+            Loading = true;
+            var data = new LoginModel()
+            {
+                Email = LoginForm.Email,
+                Password = LoginForm.Password,
+                RememberMe = true,
+            };
+
+            var response = await Client.PostAsync<LoginResult>("/api/login", data);
+            if (response.Success && response.Content is not null)
+            {
+                if (response.Content.Successful)
                 {
-                    if (response.Content.Successful)
+                    if (AuthStateProvider is ApiAuthenticationStateProvider service && await service.MarkUserAsAuthenticatedAsync(response.Content.Token))
                     {
-                        if (AuthStateProvider is ApiAuthenticationStateProvider service && await service.MarkUserAsAuthenticatedAsync(response.Content.Token))
-                        {
-                            Navigator.NavigateTo(State.CurrentUser.IsPartner ? "/home/partner" : "/home/user");
-                        }
+                        Navigator.NavigateTo(State.CurrentUser.IsPartner ? "/home/partner" : "/home/user");
                     }
                 }
-                else
-                {
-                    Error = "Error: " + response.Error.ErrorDescription;
-                }
+            }
+            else
+            {
+                Error = "Error: " + response.Error.ErrorDescription;
             }
 
             Loading = false;
@@ -93,7 +92,6 @@
 
             if (!Validators.IsEmailValid(passwordDialog.Email))
             {
-
                 passwordDialog.Error = AppTexts.Email_Not_Valid;
                 return;
             }

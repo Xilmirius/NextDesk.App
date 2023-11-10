@@ -42,32 +42,30 @@
             var result = UserFormData.ValidateFields();
             userHandler.SetValidationResult(result);
 
-            if (result.IsValid)
+            if (!result.IsValid) return;
+            Loading = true;
+
+            var data = new RegisterModel()
             {
-                Loading = true;
+                FirstName = UserFormData.FirstName,
+                LastName = UserFormData.LastName,
+                Email = UserFormData.Email,
+                Password = UserFormData.Password,
+                Birth = UserFormData.Birth ?? new(),
+                Gender = UserFormData.Gender,
+            };
 
-                var data = new RegisterModel()
+            var response = await Client.PostAsync<RegisterResult>("/api/registeruser", data);
+            if (response.Success && response.Content is not null)
+            {
+                if (response.Content.Successful)
                 {
-                    FirstName = UserFormData.FirstName,
-                    LastName = UserFormData.LastName,
-                    Email = UserFormData.Email,
-                    Password = UserFormData.Password,
-                    Birth = UserFormData.Birth ?? new(),
-                    Gender = UserFormData.Gender,
-                };
-
-                var response = await Client.PostAsync<RegisterResult>("/api/registeruser", data);
-                if (response.Success && response.Content is not null)
-                {
-                    if (response.Content.Successful)
-                    {
-                        profileType = "completed";
-                    }
+                    profileType = "completed";
                 }
-                else
-                {
-                    error = response.Error.ErrorDescription;
-                }
+            }
+            else
+            {
+                error = response.Error.ErrorDescription;
             }
 
             Loading = false;
@@ -78,36 +76,34 @@
             var result = PartnerFormData.ValidateFields();
             partnerHandler.SetValidationResult(result);
 
-            if (result.IsValid)
+            if (!result.IsValid) return;
+            Loading = true;
+
+            var data = new RegisterModel()
             {
-                Loading = true;
+                RefFirstName = PartnerFormData.RefFirstName,
+                RefLastName = PartnerFormData.RefLastName,
+                Email = PartnerFormData.Email,
+                Password = PartnerFormData.Password,
+                IsPartner = true,
+                ActivityName = PartnerFormData.ActivityName,
+                Telephone = PartnerFormData.Telephone,
+                WebSite = PartnerFormData.WebSite,
+                PartitaIva = PartnerFormData.PartitaIva,
+                Address = PartnerFormData.Address,
+            };
 
-                var data = new RegisterModel()
+            var response = await Client.PostAsync<RegisterResult>("/api/registerpartner", data);
+            if (response.Success && response.Content is not null)
+            {
+                if (response.Content.Successful)
                 {
-                    RefFirstName = PartnerFormData.RefFirstName,
-                    RefLastName = PartnerFormData.RefLastName,
-                    Email = PartnerFormData.Email,
-                    Password = PartnerFormData.Password,
-                    IsPartner = true,
-                    ActivityName = PartnerFormData.ActivityName,
-                    Telephone = PartnerFormData.Telephone,
-                    WebSite = PartnerFormData.WebSite,
-                    PartitaIva = PartnerFormData.PartitaIva,
-                    Address = PartnerFormData.Address,
-                };
-
-                var response = await Client.PostAsync<RegisterResult>("/api/registerpartner", data);
-                if (response.Success && response.Content is not null)
-                {
-                    if (response.Content.Successful)
-                    {
-                        profileType = "completed";
-                    }
+                    profileType = "completed";
                 }
-                else
-                {
-                    error = response.Error.ErrorDescription;
-                }
+            }
+            else
+            {
+                error = response.Error.ErrorDescription;
             }
 
             Loading = false;
