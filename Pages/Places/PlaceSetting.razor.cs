@@ -6,10 +6,12 @@
     using NextDesk.Classes.OptionsFor;
     using NextDesk.DataTransferObject.Places;
     using NextDesk.MongoDataLibrary.Models.Org;
+    using NextDesk.MongoDataLibrary.Models.Sys;
 
     public partial class PlaceSetting : BaseComponentPage
     {
         private Place? place;
+        private StyleSetting? style;
 
         private PlaceServicesUpdate servicesForm = new();
         private PlaceDescriptionUpdate descriptionForm = new();
@@ -26,6 +28,7 @@
             {
                 servicesForm.SetData(place.Info.Services, OptionsForPlaces.Services);
                 descriptionForm.SetData(place);
+                style = await Crud.ReadAsync<StyleSetting>(place.TheStyle);
             }
             await base.OnInitializedAsync();
         }
@@ -39,6 +42,12 @@
 
             var response = await Crud.UpdateAsync(descriptionForm, place);
             if (response.Success && response.Content is not null) place = response.Content;
+        }
+
+        private string GetImageUrl()
+        {
+            if (style is null || style.Images.Count == 0) return " /images/coffe.jpg";
+            else return style.Images[0].Url;
         }
 
         private async Task OnClickSaveServices()

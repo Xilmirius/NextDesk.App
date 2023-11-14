@@ -34,7 +34,7 @@
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<Debugger>Xamarin</Debugger>
 				<EnableLLVM>True</EnableLLVM>
-				<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+				<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 				<AndroidUseAapt2>True</AndroidUseAapt2>
 				<AndroidPackageFormat>apk</AndroidPackageFormat>
 				<AndroidKeyStore>False</AndroidKeyStore>
@@ -54,7 +54,7 @@
 				<AndroidPackageFormat>apk</AndroidPackageFormat>
 				<Debugger>Xamarin</Debugger>
 				<EnableLLVM>True</EnableLLVM>
-				<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+				<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 				<AndroidUseAapt2>True</AndroidUseAapt2>
 				<AndroidLinkTool>r8</AndroidLinkTool>
 				<AndroidKeyStore>False</AndroidKeyStore>

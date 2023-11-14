@@ -1,8 +1,10 @@
 ﻿namespace NextDesk.App.Pages.Bookings
 {
+    using System.Globalization;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using NextDesk.Classes.Client;
+    using NextDesk.MongoDataLibrary.Helpers.Org;
     using NextDesk.MongoDataLibrary.Models.Booking;
     using NextDesk.MongoDataLibrary.Models.Org;
     using NextDesk.MongoDataLibrary.Models.Sys;
@@ -75,6 +77,12 @@
                 "canceled" => "fa-xmark fa-2xl",
                 _ => throw new InvalidOperationException(nameof(booking.Status)),
             };
+        }
+
+        private string ConvertTimeRange()
+        {
+            if (booking is null) return string.Empty;
+            return booking.BookingDate.Date.Add(booking.Range.OpenTime).ToString("HH:mm", CultureInfo.CurrentUICulture);
         }
 
         private string GetTableNumber()

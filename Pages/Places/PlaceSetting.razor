@@ -7,15 +7,12 @@
 
 @if (place is null) return;
 
-<div class="text-center">
-    <h6>@("Impostazioni")</h6>
-</div>
 <div class="px-4">
     <div class="card-body">
         <div class="row flex-column text-center">
             <h1 class="card-title">@place.InternalName</h1>
             <div class="px-3">
-                <img src="https://www.tavernarossini.it/wp-content/uploads/2018/05/IMG_8129.jpg" class="img-fluid border rounded-3" />
+                <img src="@GetImageUrl()" class="img-fluid border rounded-3" />
             </div>
         </div>
         <div class="my-2">
@@ -31,8 +28,8 @@
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>
-                    <div class="row my-1">
-                        <MyMultiTextInputForm FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
+                    <div class="my-1">
+                        <MyMultiTextInputForm Rows=6 FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
                             <Label>@("Descrizione")</Label>
                         </MyMultiTextInputForm>
                     </div>
@@ -53,10 +50,18 @@
                     <div>
                         @foreach (var service in servicesForm.Services)
                         {
-                            <MyCheckBoxInputForm @bind-Value=@service.Enable FieldInfo="@(new FormFieldInfo("Service"))"
-                                                 Icon="@(OptionsForPlaces.ServicesIcon.Find(f => f.Value == service.Name)?.Description)">
+                            <div class="d-flex flex-column rounded-4">
+                                <span class="me-1">
+                                    <i class=@("fa-solid fa-2xl" + OptionsForPlaces.ServicesIcon.FindOption(service.Name, true)) />
+                                </span>
+                                <span>
+                                    @OptionsForPlaces.Services.FindOption(service.Name)
+                                </span>
+                            </div>
+@*                             <MyCheckBoxInputForm @bind-Value=@service.Enable FieldInfo="@(new FormFieldInfo("Service"))"
+                                                 Icon="@(OptionsForPlaces.ServicesIcon.FindOption(service.Name, true))">
                                 <Label>@service.Description</Label>
-                            </MyCheckBoxInputForm>
+                            </MyCheckBoxInputForm> *@
                         }
                     </div>
                     <div>
@@ -69,7 +74,7 @@
 </div>
 
 <MyDialog Visible=@editTableDialog.Visible Center Close="@editTableDialog.Hide">
-    <DialogTitle>@("Tavoli")</DialogTitle>
+     <DialogTitle>@("Tavoli")</DialogTitle>
     <Content>
         <p class="text-muted">@("Imposta il numero di tavoli disponibile per prenotare al tuo locale.")</p>
         <div class="">
@@ -122,7 +127,7 @@
 </MyDialog>
 
 <MyDialog Visible=@editDayDialog.Visible Center Close="@editDayDialog.Hide">
-    <DialogTitle>@("Impostazione") @AppTexts._DayOfWeek(editDayDialog.form.DayConfig.DayOfWeek, UILang)</DialogTitle>
+     <DialogTitle>@("Impostazione") @AppTexts._DayOfWeek(editDayDialog.form.DayConfig.DayOfWeek, UILang)</DialogTitle>
     <Content>
         <div class="row text-center">
             <h4 class="col-12">@("Orari apertura attività")</h4>

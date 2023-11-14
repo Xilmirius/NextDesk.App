@@ -36,7 +36,7 @@
             </div>
             <div class="col-3">
                 <h4>@("Ora:")</h4>
-                <p class="text-muted">@booking.BookingDate.ToString("hh:mm")</p>
+                <p class="text-muted">@ConvertTimeRange()</p>
             </div>
             <div class="col-3">
                 <h4>@("Tavolo:")</h4>
@@ -62,14 +62,14 @@
 </div>
 
 <MyDialog Visible=@visible Center Close="@(() => visible = false)">
-    <DialogTitle>@("Annullare")</DialogTitle>
-    <Content>
-        <div class="row">
-            @("Sicuro di voler annullare?")
-        </div>
-    </Content>
-    <DialogFooter>
-        <button class="btn btn-sm rounded-4" @onclick=@(() => visible = false)>@("Chiudi")</button>
-        <button class="btn btn-danger btn-sm rounded-4" @onclick=@OnClickDelete>@("Annulla")</button>
-    </DialogFooter>
-</MyDialog>
+     <DialogTitle>@("Annullare")</DialogTitle>
+     <Content>
+         <div class="row">
+             @("Sicuro di voler annullare?")
+         </div>
+     </Content>
+     <DialogFooter>
+         <button class="btn btn-sm rounded-4" @onclick=@(() => visible = false)>@("Chiudi")</button>
+         <button class="btn btn-danger btn-sm rounded-4" @onclick=@OnClickDelete>@("Annulla")</button>
+     </DialogFooter>
+ </MyDialog>

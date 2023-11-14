@@ -4,9 +4,6 @@
 
 @if (place is null) return;
 
-<div class="text-center">
-    <h6>Prenotazione</h6>
-</div>
 <div class="px-4" style="background-color: #fefdf9;">
     <div class="card-body">
         <div class="row flex-column text-center">
@@ -39,15 +36,23 @@
         </div>
         <div class="row my-2">
             <h5>@("Servizi")</h5>
-            <div class="overflow-x-auto">
+            <div class="d-flex overflow-x-scroll">
                 @foreach (var service in place.Info.Services)
                 {
-                    <div class="px-1">
-                        <span class="me-1">
-                            <i class=@("fa-solid " + OptionsForPlaces.ServicesIcon.Find(f => f.Value == service)?.Description) />
+                    <div class="badge me-2 text-muted" style="background-color: #eff9fe">
+                        <span class="text-center">
+                            <i class="@("fa-solid fa-xl " + OptionsForPlaces.ServicesIcon.FindOption(service, true))" />
                         </span>
-                        @OptionsForPlaces.Services.Find(f => f.Value == service)?.Description
+                        <span class="text-center text-muted">
+                            @OptionsForPlaces.Services.FindOption(service)
+                        </span>
                     </div>
+                    @*     <div class="px-1">
+                <span class="me-1">
+                <i class=@("fa-solid " + OptionsForPlaces.ServicesIcon.Find(f => f.Value == service)?.Description) />
+                </span>
+                @OptionsForPlaces.Services.Find(f => f.Value == service)?.Description
+                </div> *@
                 }
             </div>
         </div>
@@ -83,7 +88,7 @@
                         }
                     </div>
                 </div>
-                <div class="text-center">
+                <div class="text-center mt-2">
                     @if (SelectedDay.Range is not null)
                     {
                         <button class="btn btn-lg rounded-4" style="background-color: #eddb48" @onclick=@ShowBookingDialog>
@@ -97,16 +102,25 @@
 </div>
 
 <MyDialog Visible=@bookingDialog.Visible Center Close="@(() => bookingDialog.Visible = false)">
-    <DialogTitle>@("Prenotazione")</DialogTitle>
+     <DialogTitle>@("Prenotazione")</DialogTitle>
     <Content>
-        <div class="row">
-            @("Posto: ")@place.InternalName
+        <div class="d-flex">
+             <span class="me-2">
+                <i class="fa-solid fa-location-dot fa-xl"></i>
+            </span>
+            <h6 class="my-auto">@place.InternalName</h6>
         </div>
-        <div class="row">
-            @($"Data: {bookingDialog.form.Date.ToString("M", CultureInfo.CurrentUICulture)}")
+        <div class="d-flex my-2">
+            <span class="me-2">
+                <i class="fa-solid fa-calendar-days fa-xl"></i>
+            </span>
+            <h6 class="my-auto">@bookingDialog.form.Date.ToString("M", CultureInfo.CurrentUICulture)</h6>
         </div>
-        <div class="row">
-            @($"Orario: {ConvertTimeRange(bookingDialog.form.Range)}")
+        <div class="d-flex">
+            <span class="me-2">
+                <i class="fa-solid fa-clock fa-xl"></i>
+            </span>
+            <h6 class="my-auto">@ConvertTimeRange(bookingDialog.form.Range)</h6>
         </div>
         @if (!string.IsNullOrEmpty(bookingDialog.Error))
         {
