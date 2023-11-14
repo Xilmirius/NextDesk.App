@@ -2,10 +2,7 @@
 @layout MainLayout
 @inherits BaseComponentPage
 
-@if (booking is null || place is null)
-{
-    return;
-}
+@if (booking is null || place is null) return;
 
 <div class="text-center">
     <h6>@("Dettaglio")</h6>
