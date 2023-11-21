@@ -9,6 +9,7 @@
 				<SingleProject>true</SingleProject>
 				<ImplicitUsings>enable</ImplicitUsings>
 				<EnableDefaultCssItems>false</EnableDefaultCssItems>
+				<!--<SelfContained>true</SelfContained>-->
 
 				<!-- Display name -->
 				<ApplicationTitle>NextDesk</ApplicationTitle>
@@ -29,7 +30,7 @@
 				<Title>NextDesk App</Title>
 		</PropertyGroup>
 
-		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<Debugger>Xamarin</Debugger>
@@ -41,14 +42,14 @@
 				<ApplicationTitle>Next Desk</ApplicationTitle>
 		</PropertyGroup>
 
-		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
 				<BuildIpa>False</BuildIpa>
 		</PropertyGroup>
 
-		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -61,25 +62,17 @@
 				<ApplicationTitle>Next Desk</ApplicationTitle>
 		</PropertyGroup>
 
-		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
 				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
 				<BuildIpa>False</BuildIpa>
 		</PropertyGroup>
 
-		<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-		  <ProvisioningType>manual</ProvisioningType>
-		  <CodesignKey>iPhone Distribution</CodesignKey>
-		  <CodesignProvision></CodesignProvision>
-		</PropertyGroup>
-
-		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-		  <Debugger>Xamarin</Debugger>
-		</PropertyGroup>
-
-		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-		  <Debugger>Xamarin</Debugger>
+		<PropertyGroup Condition="'$(TargetFramework)'=='net7.0-ios'">
+				<ProvisioningType>manual</ProvisioningType>
+				<CodesignKey>iPhone Distribution</CodesignKey>
+				<CodesignProvision></CodesignProvision>
 		</PropertyGroup>
 
 		<ItemGroup>
@@ -99,7 +92,7 @@
 		</ItemGroup>
 
 		<ItemGroup>
-		  <Content Remove="nuget.config" />
+				<Content Remove="nuget.config" />
 		</ItemGroup>
 
 		<ItemGroup>
@@ -117,14 +110,14 @@
 		</ItemGroup>
 
 		<ItemGroup>
-				<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
-				<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.0" />
-				<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.3" />
-				<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-				<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
-				<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+				<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.14" />
+				<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.14" />
+				<!--<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="7.0.101" />-->
+				<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+				<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+				<!--<PackageReference Include="Microsoft.Maui.Controls" Version="7.0.0" />-->
 				<PackageReference Include="Serilog" Version="3.1.1" />
-				<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+				<PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
 				<PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
 				<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 		</ItemGroup>
