@@ -58,6 +58,7 @@
 				<AndroidLinkTool>r8</AndroidLinkTool>
 				<AndroidKeyStore>False</AndroidKeyStore>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
+				<DebugSymbols>True</DebugSymbols>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">

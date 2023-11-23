@@ -47,12 +47,6 @@
                             @OptionsForPlaces.Services.FindOption(service)
                         </span>
                     </div>
-                    @*     <div class="px-1">
-                <span class="me-1">
-                <i class=@("fa-solid " + OptionsForPlaces.ServicesIcon.Find(f => f.Value == service)?.Description) />
-                </span>
-                @OptionsForPlaces.Services.Find(f => f.Value == service)?.Description
-                </div> *@
                 }
             </div>
         </div>
@@ -88,11 +82,11 @@
                         }
                     </div>
                 </div>
-                <div class="text-center mt-2">
+                <div class="float-end mt-2">
                     @if (SelectedDay.Range is not null)
                     {
                         <button class="btn btn-lg rounded-4" style="background-color: #eddb48" @onclick=@ShowBookingDialog>
-                            @("Schedule >>")
+                            @("Prenota >>")
                         </button>
                     }
                 </div>
@@ -103,12 +97,12 @@
 
 <MyDialog Visible=@bookingDialog.Visible Center Close="@(() => bookingDialog.Visible = false)">
      <DialogTitle>@("Prenotazione")</DialogTitle>
-    <Content>
-        <div class="d-flex">
+     <Content>
+         <div class="d-flex">
              <span class="me-2">
-                <i class="fa-solid fa-location-dot fa-xl"></i>
-            </span>
-            <h6 class="my-auto">@place.InternalName</h6>
+                 <i class="fa-solid fa-location-dot fa-xl"></i>
+             </span>
+             <h6 class="my-auto">@place.InternalName</h6>
         </div>
         <div class="d-flex my-2">
             <span class="me-2">
