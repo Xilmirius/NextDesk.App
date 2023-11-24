@@ -114,18 +114,12 @@
         }
     }
 
-    public class DayItemConfiguration
+    public class DayItemConfiguration(DayConfiguration config, DateTime date)
     {
-        public DayConfiguration Config { get; }
+        public DayConfiguration Config { get; } = config;
 
-        public DateTime Date { get; }
+        public DateTime Date { get; } = date;
 
         public TimeRange? Range { get; set; }
-
-        public DayItemConfiguration(DayConfiguration config, DateTime date)
-        {
-            Config = config;
-            Date = date;
-        }
     }
 }
