@@ -3,11 +3,12 @@
     using System.Threading.Tasks;
     using NextDesk.Classes.Client;
     using NextDesk.DataTransferObject.API;
+    using NextDesk.DataTransferObject.Places;
     using NextDesk.MongoDataLibrary.Models.Org;
 
     public partial class User : BaseComponentPage
     {
-        private List<Place> places = new();
+        private List<PlaceDetailsDTO> places = new();
         private string stringSearch = string.Empty;
 
         public string Search
@@ -35,7 +36,7 @@
                     StringSearch = Search,
                 };
 
-                var response = await Crud.GenericSearchFor<Place>(search);
+                var response = await Crud.GenericDTOSearchFor<Place, PlaceDetailsDTO>(search);
                 if (response is not null) places = response.ListResult;
             }, nameof(User));
             StateHasChanged();

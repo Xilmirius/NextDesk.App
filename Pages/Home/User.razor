@@ -1,4 +1,4 @@
-﻿@page "/home/user"
+﻿﻿@page "/home/user"
 @layout MainLayout
 @inherits BaseComponentPage
 
@@ -12,6 +12,12 @@
     </div>
     <div class="row px-3 overflow-y-auto">
         <BackgroundLoader TaskId="@nameof(User)">
+            @if (places.Count == 0)
+            {
+                <div class="alert alert-info mt-3" role="alert">
+                    @("Nessun posto trovato!")
+                </div>
+            }
             @foreach (var place in places)
             {
                 <PlaceCard Place="@place" AsUserView />
@@ -19,4 +25,3 @@
         </BackgroundLoader>
     </div>
 </div>
-
