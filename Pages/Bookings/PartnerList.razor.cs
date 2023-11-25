@@ -9,7 +9,7 @@
 
     public partial class PartnerList : BaseComponentPage
     {
-        private List<Booking> bookings = new();
+        private List<Booking> bookings = [];
 
         protected override async Task OnInitializedAsync()
         {

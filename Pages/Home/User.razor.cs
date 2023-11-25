@@ -8,7 +8,7 @@
 
     public partial class User : BaseComponentPage
     {
-        private List<PlaceDetailsDTO> places = new();
+        private List<PlaceDetailsDTO> places = [];
         private string stringSearch = string.Empty;
 
         public string Search

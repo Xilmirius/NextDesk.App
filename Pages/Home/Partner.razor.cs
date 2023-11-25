@@ -8,7 +8,7 @@
 
     public partial class Partner : BaseComponentPage
     {
-        private List<PlaceDetailsDTO> places = new();
+        private List<PlaceDetailsDTO> places = [];
 
         protected override async Task OnInitializedAsync()
         {

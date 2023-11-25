@@ -14,7 +14,7 @@
         private bool showFullDescription = false;
 
         private Place? place;
-        private List<DayItemConfiguration> nextBookingDays = new();
+        private List<DayItemConfiguration> nextBookingDays = [];
 
         private DayItemConfiguration? SelectedDay;
 
