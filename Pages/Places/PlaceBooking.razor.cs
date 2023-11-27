@@ -107,10 +107,12 @@
             }
         }
 
+        private bool CanSchedule() => SelectedDay is not null && SelectedDay.Range is not null;
+
         private string ShortDescription()
         {
             if (place is null) return string.Empty;
-            return place.Info.Description.Length > 45 ? place.Info.Description[..44] : place.Info.Description;
+            return place.Info.Description.Length > 70 ? place.Info.Description[..69] : place.Info.Description;
         }
     }
 
