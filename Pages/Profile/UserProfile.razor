@@ -1,4 +1,4 @@
-@page "/profile/{id}"
+﻿@page "/profile/{id}"
 @layout MainLayout
 @inherits BaseComponentPage
 
@@ -7,44 +7,40 @@
     return;
 }
 
-<div class="card">
-    <div class="row flex-column text-center">
-        <h1 class="card-title">@("Profilo")</h1>
-        <div class="px-3">
-            <img class="w-50 rounded-circle" src="/images/user.png" />
-        </div>
-    </div>
-    <div class="card-body">
-        <MyTextInputForm FieldInfo="@handler.GetField("FirstName")" @bind-Value=@form.FirstName>
-            <Label>@AppTexts.FirstName</Label>
-        </MyTextInputForm>
-        <MyTextInputForm FieldInfo="@handler.GetField("LastName")" @bind-Value=@form.LastName>
-            <Label>@AppTexts.LastName</Label>
-        </MyTextInputForm>
-        <MySelectInputForm FieldInfo="@handler.GetField("Gender")" @bind-Value=@form.Gender Options="@OptionsForUsers.Gender">
-            <Label>@AppTexts.Gender</Label>
-        </MySelectInputForm>
-        <MyTextInputForm FieldInfo="@handler.GetField("Email")" Value=@account.Email Disabled>
-            <Label>@AppTexts.Email</Label>
-        </MyTextInputForm>
-        <MyTextInputForm FieldInfo="@handler.GetField("Password")" Value="********" Disabled>
-            <Label>@AppTexts.Password</Label>
-        </MyTextInputForm>
-        <div class="px-4">
-            <button class="btn btn-sm btn-link">@("Ricupera password")</button>
-            <button class="btn float-end rounded-4" style="background-color: #00cb74;" @onclick=@OnClickSaveAccount>@("Salva")</button>
-        </div>
+<h1 class="text-center card-title">@("Profilo")</h1>
+<div class="text-center px-3">
+    <img class="w-50 rounded-circle" src="/images/user.png" />
+</div>
+<div class="card-body px-3">
+    <MyTextInputForm FieldInfo="@handler.GetField("FirstName")" @bind-Value=@form.FirstName>
+        <Label>@AppTexts.FirstName</Label>
+    </MyTextInputForm>
+    <MyTextInputForm FieldInfo="@handler.GetField("LastName")" @bind-Value=@form.LastName>
+        <Label>@AppTexts.LastName</Label>
+    </MyTextInputForm>
+    <MySelectInputForm FieldInfo="@handler.GetField("Gender")" @bind-Value=@form.Gender Options="@OptionsForUsers.Gender">
+        <Label>@AppTexts.Gender</Label>
+    </MySelectInputForm>
+    <MyTextInputForm FieldInfo="@handler.GetField("Email")" Value=@account.Email Disabled>
+        <Label>@AppTexts.Email</Label>
+    </MyTextInputForm>
+    <MyTextInputForm FieldInfo="@handler.GetField("Password")" Value="********" Disabled>
+        <Label>@AppTexts.Password</Label>
+    </MyTextInputForm>
+    <div class="px-3">
+        <button class="btn btn-sm btn-link">@("Cambia password")</button>
+        <button class="btn float-end rounded-4" style="background-color: #00cb74;" @onclick=@OnClickSaveAccount>@("Salva")</button>
     </div>
 </div>
-<div class="card mt-2">
+<div class="mt-2">
     <h4 class="card-title px-2">@("Azioni")</h4>
-    <div class="card-body">
-        <div class="d-flex flex-column align-content-center">
-            <a href="mailto:nede.team@gmail.com" class="btn rounded-4" style="background-color: #eddb48;">
+    <div class="">
+        <div class="text-center">
+            <a href="mailto:nede.team@gmail.com" class="btn rounded-4 px-3" style="background-color: #eddb48;">
                 @("Contattaci")
                 <i class="fa-solid fa-envelope"></i>
             </a>
-            <button class="btn btn-outline-danger rounded-4 my-2" @onclick=@Logout>
+            <button class="btn btn-outline-danger rounded-4 my-2 px-3" @onclick=@Logout>
                 @("Esci")
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
