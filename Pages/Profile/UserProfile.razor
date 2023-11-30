@@ -1,17 +1,14 @@
-﻿@page "/profile/{id}"
+﻿@page "/profile/"
 @layout MainLayout
 @inherits BaseComponentPage
 
-@if (account is null || account.Id != State.CurrentUser.Id)
-{
-    return;
-}
+@if (account is null) return;
 
 <h1 class="text-center card-title">@("Profilo")</h1>
-<div class="text-center px-3">
+<div class="text-center">
     <img class="w-50 rounded-circle" src="/images/user.png" />
 </div>
-<div class="card-body px-3">
+<div class="card-body">
     <MyTextInputForm FieldInfo="@handler.GetField("FirstName")" @bind-Value=@form.FirstName>
         <Label>@AppTexts.FirstName</Label>
     </MyTextInputForm>

@@ -16,15 +16,12 @@
 
         private Account? account;
 
-        [Parameter]
-        public string Id { get; set; } = string.Empty;
-
         [Inject]
         public AuthenticationStateProvider AuthProv { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
-            account = await Crud.ReadAsync<Account>(Id);
+            account = await Crud.ReadAsync<Account>(State.CurrentUser.Id);
             if (account is not null)
             {
                 form.SetData(account);
