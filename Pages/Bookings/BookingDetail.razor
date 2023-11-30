@@ -1,4 +1,4 @@
-@page "/bookings/details/{Id}"
+﻿@page "/bookings/details/{Id}"
 @layout MainLayout
 @inherits BaseComponentPage
 
@@ -7,7 +7,7 @@
 <div class="text-center">
     <h6>@("Dettaglio")</h6>
 </div>
-<div class="px-3">
+<div>
     <div class="card-body">
         <div class="@GetStatusCssContainer()">
             <h2 class="card-title my-2">@GetBookingStatusTitle()</h2>

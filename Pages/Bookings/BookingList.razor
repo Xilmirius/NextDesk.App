@@ -1,10 +1,17 @@
-﻿@page "/bookings/userlist"
+﻿@page "/bookings/bookinglist"
 @layout MainLayout
 @inherits BaseComponentPage
 
 <BannerNede Title=@("Appuntamenti") />
-<div class="px-3 mt-2">
-    <BackgroundLoader TaskId="@nameof(UserList)">
+<div class="mt-2">
+    @if (State.CurrentUser.IsPartner)
+    {
+        <MySelectInputForm FieldInfo="@(new(string.Empty))" @bind-Value=@SelectedPlace Options="@places">
+            <Label>@("Appuntamenti di:")</Label>
+        </MySelectInputForm>
+    }
+
+    <BackgroundLoader TaskId="@nameof(BookingList)">
         <TabManager Fill Pills>
             <TabHeader Name=@("Prossimi") />
             <TabHeader Name=@("Passati") />
