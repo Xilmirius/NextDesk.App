@@ -4,109 +4,107 @@
 
 @if (place is null) return;
 
-<div class="px-3">
-    <div class="card-body">
-        <div class="row flex-column">
-            <div class="p-3">
-                <div class="position-relative">
-                    <img src="https://www.tavernarossini.it/wp-content/uploads/2018/05/IMG_8129.jpg" class="img-fluid rounded-4" />
-                   @*  <span class="position-absolute bottom-0 start-100 translate-middle">
-                        <button class="btn btn-sm bg-body rounded me-5">
-                            <i class="fa-solid fa-heart fa-xl" />
-                        </button>
-                    </span> *@
-                </div>
-            </div>
-            <div class="d-flex justify-content-between">
-                <h2 class="card-title">@place.InternalName</h2>
-                <a href="https://maps.app.goo.gl/9TXpqB65E3jVRfrVA" class="fw-bold text-decoration-none">@("Mappa")</a>
-            </div>
-            <div>
-                <span style="color: #eddb48">
-                    <i class="fa-solid fa-star" />
-                </span>
-                <span class="fw-light fs-6">4.5 (355 Recensioni)</span>
+<div class="card-body">
+    <div class="row flex-column">
+        <div class="p-3">
+            <div class="position-relative">
+                <img src="https://www.tavernarossini.it/wp-content/uploads/2018/05/IMG_8129.jpg" class="img-fluid rounded-4" />
+                @*  <span class="position-absolute bottom-0 start-100 translate-middle">
+                <button class="btn btn-sm bg-body rounded me-5">
+                <i class="fa-solid fa-heart fa-xl" />
+                </button>
+                </span> *@
             </div>
         </div>
-
-        <div class="row mt-2">
-            <div>
-                <p class="px-1 m-auto">
-                    @if (showFullDescription)
-                    {
-                        @place.Info.Description
-                    }
-                    else
-                    {
-                        @ShortDescription()
-                        <span>...</span>
-                    }
-                </p>
-                @if (!showFullDescription)
-                {
-                    <button class="btn btn-sm fw-bold" @onclick="@(() => showFullDescription = true)" style="color: #2878f1">
-                        @("Vedi tutto")
-                        <span>
-                            <i class="fa-solid fa-chevron-down" />
-                        </span>
-                    </button>
-                }
-            </div>
+        <div class="d-flex justify-content-between">
+            <h2 class="card-title">@place.InternalName</h2>
+            <a href="https://maps.app.goo.gl/9TXpqB65E3jVRfrVA" class="fw-bold text-decoration-none">@("Mappa")</a>
         </div>
-
-        <div class="row my-2">
-            <h5>@("Servizi")</h5>
-            <div class="d-flex overflow-x-scroll">
-                @foreach (var service in place.Info.Services)
-                {
-                    <div class="badge me-2 text-muted" style="background-color: #00cb74">
-                        <span class="text-center">
-                            <i class="@("fa-solid fa-xl " + OptionsForPlaces.ServicesIcon.FindOption(service, true))" />
-                        </span>
-                        <span class="text-center text-muted">
-                            @OptionsForPlaces.Services.FindOption(service)
-                        </span>
-                    </div>
-                }
-            </div>
+        <div>
+            <span style="color: #eddb48">
+                <i class="fa-solid fa-star" />
+            </span>
+            <span class="fw-light fs-6">4.5 (355 Recensioni)</span>
         </div>
+    </div>
 
-        <div class="row">
-            <h5>Schedule</h5>
-            <div class="d-flex overflow-x-scroll">
-                @foreach (var day in nextBookingDays)
+    <div class="row mt-2">
+        <div>
+            <p class="px-1 m-auto">
+                @if (showFullDescription)
                 {
-                    <button class="btn btn-outline-dark m-2 p-1 rounded-2" style=@StyleDateButton(day.Date) @onclick=@(() => SelectDay(day)) disabled="@(!day.Config.IsOpen)">
-                        <strong>@day.Date.Day</strong>
-                        <small>@day.Date.ToString("MMMM", CultureInfo.CurrentUICulture)</small>
-                    </button>
+                    @place.Info.Description
                 }
-            </div>
-            @if (SelectedDay is not null)
+                else
+                {
+                    @ShortDescription()
+                    <span>...</span>
+                }
+            </p>
+            @if (!showFullDescription)
             {
-                <h5>@("Orari")</h5>
-                <div class="row my-2">
-                    <div class="d-flex overflow-x-scroll">
-                        @if (SelectedDay.Config.NedeTimeRanges.Count == 0)
-                        {
-                            <div class="alert alert-light" role="alert">
-                                @("Non ci sono orari per questo giorno.")
-                            </div>
-                        }
-                        @foreach (var range in SelectedDay.Config.NedeTimeRanges)
-                        {
-                            <button class="btn btn-sm btn-outline-dark" style=@("background-color: #00cb74") @onclick=@(() => SelectedDay.Range = range)>
-                                <strong>@(ConvertTimeRange(range))</strong>
-                            </button>
-                        }
-                    </div>
+                <button class="btn btn-sm fw-bold" @onclick="@(() => showFullDescription = true)" style="color: #2878f1">
+                    @("Vedi tutto")
+                    <span>
+                        <i class="fa-solid fa-chevron-down" />
+                    </span>
+                </button>
+            }
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <h5>@("Servizi")</h5>
+        <div class="d-flex overflow-x-scroll">
+            @foreach (var service in place.Info.Services)
+            {
+                <div class="badge me-2 text-muted" style="background-color: #00cb74">
+                    <span class="text-center">
+                        <i class="@("fa-solid fa-xl " + OptionsForPlaces.ServicesIcon.FindOption(service, true))" />
+                    </span>
+                    <span class="text-center text-muted">
+                        @OptionsForPlaces.Services.FindOption(service)
+                    </span>
                 </div>
             }
-            <div class="mt-2">
-                <button class="btn btn-lg rounded-4 float-end" disabled="@(!CanSchedule())" style="background-color: #eddb48" @onclick=@ShowBookingDialog>
-                    @("Prenota ➔")
+        </div>
+    </div>
+
+    <div class="row">
+        <h5>Schedule</h5>
+        <div class="d-flex overflow-x-scroll">
+            @foreach (var day in nextBookingDays)
+            {
+                <button class="btn btn-outline-dark m-2 p-1 rounded-2" style=@StyleDateButton(day.Date) @onclick=@(() => SelectDay(day)) disabled="@(!day.Config.IsOpen)">
+                    <strong>@day.Date.Day</strong>
+                    <small>@day.Date.ToString("MMMM", CultureInfo.CurrentUICulture)</small>
                 </button>
+            }
+        </div>
+        @if (SelectedDay is not null)
+        {
+            <h5>@("Orari")</h5>
+            <div class="row my-2">
+                <div class="d-flex overflow-x-scroll">
+                    @if (SelectedDay.Config.NedeTimeRanges.Count == 0)
+                    {
+                        <div class="alert alert-light" role="alert">
+                            @("Non ci sono orari per questo giorno.")
+                        </div>
+                    }
+                    @foreach (var range in SelectedDay.Config.NedeTimeRanges)
+                    {
+                        <button class="btn btn-sm btn-outline-dark" style=@("background-color: #00cb74") @onclick=@(() => SelectedDay.Range = range)>
+                            <strong>@(ConvertTimeRange(range))</strong>
+                        </button>
+                    }
+                </div>
             </div>
+        }
+        <div class="mt-2">
+            <button class="btn btn-lg rounded-4 float-end" disabled="@(!CanSchedule())" style="background-color: #eddb48" @onclick=@ShowBookingDialog>
+                @("Prenota ➔")
+            </button>
         </div>
     </div>
 </div>

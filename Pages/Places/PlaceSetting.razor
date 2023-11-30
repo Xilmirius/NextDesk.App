@@ -7,78 +7,74 @@
 
 @if (place is null) return;
 
-<div class="px-4">
-    <div class="card-body">
-        <div class="row flex-column text-center">
-            <h1 class="card-title">@place.InternalName</h1>
-            <div class="px-3">
-                <img src="@GetImageUrl()" class="img-fluid border rounded-3" />
+
+<div class="card-body">
+    <div class="row flex-column">
+        <div class="p-3">
+            <div class="position-relative">
+                <img src="@GetImageUrl()" class="img-fluid rounded-4" />
             </div>
         </div>
-        <div class="my-2">
-            <TabManager Small Fill UnderLine>
-                <TabHeader Name=@("Generale") />
-                <TabHeader Name=@("Disponibilità") />
-                <TabHeader Name=@("Servizi") />
-
-                <TabContent Name=@("Generale")>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6>@("Capacità attuale"): @place.Booking.TotalCapacity</h6>
-                        <button class="btn btn-outline-dark" @onclick=@OnClickTablesDialog>
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-                    <div class="my-1">
-                        <MyMultiTextInputForm Rows=6 FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
-                            <Label>@("Descrizione")</Label>
-                        </MyMultiTextInputForm>
-                    </div>
-                    <div>
-                        <button class="btn float-end rounded-4" style="background-color: #00cb74;" @onclick=@OnClickSaveDescription>@("Salva")</button>
-                    </div>
-                </TabContent>
-                <TabContent Name=@("Disponibilità")>
-                    <div class="d-flex flex-column">
-                        <h6 class="">@("Gestisci disponibilità")</h6>
-                        @foreach (var day in place.Calendar.Days)
-                        {
-                            <button class=@("btn my-1 " + (day.IsOpen ? "btn-outline-success" : "btn-outline-warning")) @onclick=@(() => editDayDialog.Show(day))>@AppTexts._DayOfWeek(day.DayOfWeek, UILang)</button>
-                        }
-                    </div>
-                </TabContent>
-                <TabContent Name=@("Servizi")>
-                    <div>
-                        @foreach (var service in servicesForm.Services)
-                        {
-                            <div class="d-flex flex-column rounded-4">
-                                <span class="me-1">
-                                    <i class=@("fa-solid fa-2xl" + OptionsForPlaces.ServicesIcon.FindOption(service.Name, true)) />
-                                </span>
-                                <span>
-                                    @OptionsForPlaces.Services.FindOption(service.Name)
-                                </span>
-                            </div>
-@*                             <MyCheckBoxInputForm @bind-Value=@service.Enable FieldInfo="@(new FormFieldInfo("Service"))"
-                                                 Icon="@(OptionsForPlaces.ServicesIcon.FindOption(service.Name, true))">
-                                <Label>@service.Description</Label>
-                            </MyCheckBoxInputForm> *@
-                        }
-                    </div>
-                    <div>
-                        <button class="btn btn-success float-end" @onclick=@OnClickSaveServices>@("Salva")</button>
-                    </div>
-                </TabContent>
-            </TabManager>
+        <div class="d-flex justify-content-between">
+            <h2 class="card-title">@place.InternalName</h2>
         </div>
+    </div>
+    <div class="my-2">
+        <TabManager Small Fill UnderLine>
+            <TabHeader Name=@("Generale") />
+            <TabHeader Name=@("Disponibilità") />
+            <TabHeader Name=@("Servizi") />
+
+            <TabContent Name=@("Generale")>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6>@("Capacità attuale"): @place.Booking.TotalCapacity</h6>
+                    <button class="btn btn-outline-dark" @onclick=@OnClickTablesDialog>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <div class="my-1">
+                    <MyMultiTextInputForm Rows=6 FieldInfo=@(new FormFieldInfo("description")) @bind-Value=@descriptionForm.Description Placeholder=@("Aggiungi descrizione")>
+                        <Label>@("Descrizione")</Label>
+                    </MyMultiTextInputForm>
+                </div>
+                <div>
+                    <button class="btn float-end rounded-4" style="background-color: #00cb74;" @onclick=@OnClickSaveDescription>@("Salva")</button>
+                </div>
+            </TabContent>
+            <TabContent Name=@("Disponibilità")>
+                <div class="d-flex flex-column">
+                    <h6 class="">@("Gestisci disponibilità")</h6>
+                    @foreach (var day in place.Calendar.Days)
+                    {
+                        <button class=@("btn my-1 " + (day.IsOpen ? "btn-outline-success" : "btn-outline-warning")) @onclick=@(() => editDayDialog.Show(day))>@AppTexts._DayOfWeek(day.DayOfWeek, UILang)</button>
+                    }
+                </div>
+            </TabContent>
+            <TabContent Name=@("Servizi")>
+                <div>
+                    @foreach (var service in servicesForm.Services)
+                    {
+                        <MyCheckBoxInputForm @bind-Value=@service.Enable FieldInfo="@(new FormFieldInfo("Service"))"
+                                             Icon="@(OptionsForPlaces.ServicesIcon.FindOption(service.Name, true))">
+                            <Label>@service.Description</Label>
+                        </MyCheckBoxInputForm>
+                    }
+                </div>
+                <div>
+                    <button class="btn btn-success float-end" @onclick=@OnClickSaveServices>@("Salva")</button>
+                </div>
+            </TabContent>
+        </TabManager>
     </div>
 </div>
 
+
 <MyDialog Visible=@editTableDialog.Visible Center Close="@editTableDialog.Hide">
      <DialogTitle>@("Tavoli")</DialogTitle>
-    <Content>
-        <p class="text-muted">@("Imposta il numero di tavoli disponibile per prenotare al tuo locale.")</p>
-        <div class="">
-            <span>@("Capacità totale: ") @editTableDialog.form.Capacity</span>
+     <Content>
+         <p class="text-muted">@("Imposta il numero di tavoli disponibile per prenotare al tuo locale.")</p>
+         <div class="">
+             <span>@("Capacità totale: ") @editTableDialog.form.Capacity</span>
             <button class="btn btn-sm btn-outline-dark rounded-4" @onclick=@(() => editTableDialog.form.Tables.Add(new()))>
                 <i class="fa-solid fa-plus"></i>
             </button>
@@ -144,10 +140,16 @@
                     {
                         <tr>
                             <td>
-                                <input class="form-control" type="time" value="@range.Open.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.Edit("open", range.Index, e.Value?.ToString())) />
+                                <input class="form-control"
+                                       type="time"
+                                       value="@range.Open.ToString("HH:mm")"
+                                       @onchange=@(e => editDayDialog.form.Edit("open", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
-                                <input class="form-control" type="time" value="@range.Close.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.Edit("close", range.Index, e.Value?.ToString())) />
+                                <input class="form-control"
+                                       type="time"
+                                       value="@range.Close.ToString("HH:mm")"
+                                       @onchange=@(e => editDayDialog.form.Edit("close", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-outline-danger" @onclick=@(() => editDayDialog.form.TimeRange.RemoveAt(range.Index))>
@@ -180,10 +182,16 @@
                     {
                         <tr>
                             <td>
-                                <input class="form-control" type="time" value="@range.Open.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.EditNede("open", range.Index, e.Value?.ToString())) />
+                                <input class="form-control"
+                                       type="time"
+                                       value="@range.Open.ToString("HH:mm")"
+                                       @onchange=@(e => editDayDialog.form.EditNede("open", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
-                                <input class="form-control" type="time" value="@range.Close.ToString("HH:mm:ss")" @onchange=@(e => editDayDialog.form.EditNede("close", range.Index, e.Value?.ToString())) />
+                                <input class="form-control"
+                                       type="time"
+                                       value="@range.Close.ToString("HH:mm")"
+                                       @onchange=@(e => editDayDialog.form.EditNede("close", range.Index, e.Value?.ToString())) />
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-outline-danger my-auto" @onclick=@(() => editDayDialog.form.NedeTimeRange.RemoveAt(range.Index))>
