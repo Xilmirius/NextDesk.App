@@ -4,19 +4,17 @@
 
 @attribute [Authorize(Roles = "partner")]
 
-<BannerNede Title="@("Benvenuto!")" />
-<div class="card">
-    <div class="card-body">
-        <h6 class="card-subtitle mb-2">@AppTexts.Your_Places</h6>
-        <BackgroundLoader TaskId="placesList">
-            @if (places.Count == 0)
-            {
-                <h6 class="text-danger">@AppTexts.There_are_none_places</h6>
-            }
-            @foreach (var place in places)
-            {
-                <PlaceCard Place="@place" />
-            }
-        </BackgroundLoader>
-    </div>
+<BannerNede Title=@AppTexts.Your_Places />
+
+<div class="card-body">
+    <BackgroundLoader TaskId="placesList">
+        @if (places.Count == 0)
+        {
+            <h6 class="text-danger">@AppTexts.There_are_none_places</h6>
+        }
+        @foreach (var place in places)
+        {
+            <PlaceCard Place="@place" />
+        }
+    </BackgroundLoader>
 </div>
