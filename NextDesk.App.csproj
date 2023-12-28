@@ -19,18 +19,21 @@
 				<ApplicationIdGuid>BCE50B79-55B8-4D0D-8D55-06B8431A2907</ApplicationIdGuid>
 
 				<!-- Versions -->
-				<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-				<ApplicationVersion>1</ApplicationVersion>
+				<ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
+				<ApplicationVersion>2</ApplicationVersion>
 
 				<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 				<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24</SupportedOSPlatformVersion>
 				<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 				<Title>NextDesk App</Title>
+				<Company>NextDesk</Company>
+				<SignAssembly>False</SignAssembly>
+				<EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
-				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
+				<ApplicationDisplayVersion>0.0.2</ApplicationDisplayVersion>
 				<Debugger>Xamarin</Debugger>
 				<EnableLLVM>True</EnableLLVM>
 				<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
@@ -38,18 +41,20 @@
 				<AndroidPackageFormat>apk</AndroidPackageFormat>
 				<AndroidKeyStore>False</AndroidKeyStore>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
+				<ApplicationVersion>2</ApplicationVersion>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
-				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
+				<ApplicationDisplayVersion>0.0.2</ApplicationDisplayVersion>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
 				<BuildIpa>False</BuildIpa>
+				<ApplicationVersion>2</ApplicationVersion>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
-				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
+				<ApplicationDisplayVersion>0.0.2</ApplicationDisplayVersion>
 				<AndroidPackageFormat>apk</AndroidPackageFormat>
 				<Debugger>Xamarin</Debugger>
 				<EnableLLVM>True</EnableLLVM>
@@ -58,13 +63,15 @@
 				<AndroidLinkTool>r8</AndroidLinkTool>
 				<AndroidKeyStore>False</AndroidKeyStore>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
+				<ApplicationVersion>2</ApplicationVersion>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 				<ApplicationId>com.nextdesk.app</ApplicationId>
-				<ApplicationDisplayVersion>0.2</ApplicationDisplayVersion>
+				<ApplicationDisplayVersion>0.0.2</ApplicationDisplayVersion>
 				<ApplicationTitle>Next Desk</ApplicationTitle>
 				<BuildIpa>False</BuildIpa>
+				<ApplicationVersion>2</ApplicationVersion>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">

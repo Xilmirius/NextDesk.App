@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Components.Authorization;
     using NextDesk.Classes.Client;
+    using NextDesk.Classes.Client.App;
     using NextDesk.Classes.Client.BackgroundLoader;
     using NextDesk.Classes.Toast;
     using Serilog;
@@ -27,15 +28,18 @@
             var handler = GetPlatformMessageHandler();
             builder.Services.AddScoped(_ => new HttpClient(handler) { BaseAddress = new Uri(baseAddress) });
 #else
-            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://nextdesk.somee.com/") });
+            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri("http://nextdesk.site/") });
 #endif
 
             builder.Services.AddMauiBlazorWebView();
+
             builder.Services.AddScoped<MyHttpClient>();
             builder.Services.AddScoped<Crud>();
+            builder.Services.AddScoped<ILocalStorage, AppLocalStorage>();
             builder.Services.AddScoped<ApplicationState>();
             builder.Services.AddScoped<ToastService>();
             builder.Services.AddScoped<BackgroundLoaderService>();
+
             builder.Services.AddAuthorizationCore(opt =>
                 opt.FallbackPolicy = new AuthorizationPolicyBuilder()
                                             .RequireAuthenticatedUser()
@@ -62,16 +66,12 @@
 
         private static void SetupSerilog()
         {
-            var flushInterval = TimeSpan.FromSeconds(5);
-            var file = Path.Combine(FileSystem.Current.AppDataDirectory, "NextDesk.log");
-
             Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-            .Enrich.FromLogContext()
-            .WriteTo.Debug()
-            .WriteTo.File(file, flushToDiskInterval: flushInterval, encoding: System.Text.Encoding.UTF8, rollingInterval: RollingInterval.Day, retainedFileCountLimit: 22)
-            .CreateLogger();
+                .MinimumLevel.Verbose()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .WriteTo.Debug()
+                .CreateLogger();
         }
     }
 }

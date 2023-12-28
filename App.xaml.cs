@@ -1,6 +1,6 @@
 ﻿namespace NextDesk.App
 {
-    using NextDesk.Classes.Client;
+    using NextDesk.Classes.Client.App;
 
     public partial class App : Application
     {
